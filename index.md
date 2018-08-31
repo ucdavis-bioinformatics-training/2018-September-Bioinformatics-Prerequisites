@@ -21,11 +21,3 @@ Wednesday
 * [Clusters & Modules - HANDS-ON](wednesday/cluster.md)
 * [Introduction to the R Statistical Programming Language - HANDS-ON](wednesday/Intro2R.md)
 
-Thursday
-------------
-
-* Review and Q&A
-* [Linear Modelling in R - HANDS-ON](thursday/ThursAM.html)
-* [Data in R Preparation](Data_in_R/data_in_R_prepare.md)
-	* [Data in R - Final](Data_in_R/data_in_R.md)
-
