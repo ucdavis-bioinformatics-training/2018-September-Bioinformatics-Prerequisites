@@ -188,10 +188,10 @@ Why might these very different-looking commands be equivalent??
 Create and Destroy
 -------------------
 
-OK, so let's get down to actually making some changes to the filesystem.
+OK, so let's get down to actually making some changes to the filesystem. First let's change to a working directory other than your home directory, which should be reserved for your personal documents, config files, and maybe pictures of your pet penguin.
 
-    cd  # home again
-    mkdir temp  # make a directory called 'temp'
+    cd /share/workshop/username  # back to our working directory
+    mkdir temp  # make a new directory directory under your current one, called 'temp'
     cd temp/
     echo 'Hello, world!' > first.txt  # push text into a file using the '>' (redirection) character
     file first.txt  # tells us what kind of file it is
@@ -225,8 +225,8 @@ Piping and Redirection
 
 Pipes ('\|') allow commands to hand output to other commands, and redirection characters ('>' and '>>') allow you to put output into files.
 
-    mkdir CLB
-    cd CLB/
+    mkdir CLI  # make a new directory for stuff from this Command Line Introduction
+    cd CLI/
     echo 'first' > test.txt
     cat test.txt
     echo 'second' > test.txt
@@ -574,7 +574,7 @@ Installing (Simple) Software
 
 Let's install a straightforward tool ... another read aligner by the author of BWA that's intended for longer, lower accuracy reads (such as from the PacBio or Oxford Nanopore sequencers): minimap2.
 
-    cd  # returns you to your home directory, since we've been working in the 'CLB' directory
+    cd  # returns you to your home directory, since we've been working in the 'CLI' directory
     mkdir tools
     cd tools/
     git clone https://github.com/lh3/minimap2.git
@@ -584,5 +584,10 @@ Let's install a straightforward tool ... another read aligner by the author of B
     cd
 
 Now you can run this tool (an executable file) by fully specifying the path to your 'tools' directory from wherever you're running the tool. In addition, you could copy, move, or put symbolic links to the tool in a common place, like /usr/bin/, which should be in everybody's path.
+
+CHALLENGE
+------------
+
+Can you run the minimap2 aligner to align the phiX sequence against our genome.fa reference (once again, ignoring that they're the same data)? Create another SAM file - say, aln.minimap2.sam - that we can compare to our earlier alignment that used BWA MEM. HINT: options may be involved.
 
 
