@@ -400,7 +400,7 @@ This may or may not be a particularly useful thing to do with a genomic FASTA fi
 CHALLENGE
 ----------
 
-The commands above only find start codons on the forward strand. How would you find the most common second codons (after the ATG) on the reverse strand? CHALLENGING BONUS: Can you add these in with the codons from the example above, and count them all at once? Note that the 'rev' command reverses strings, and the 'tr' command translates:
+The commands above only find start codons on the forward strand. How would you find the most common second codons (after the ATG) on the reverse strand? CHALLENGING BONUS: Can you add these in with the codons from the example above, and then count them all together? Note that the 'rev' command reverses strings, and the 'tr' command translates:
 
     echo CAFE | tr 'ABCDEF' 'abcdef'
 
