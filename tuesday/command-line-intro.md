@@ -4,11 +4,11 @@ Intro to the Command Line
 Getting There
 --------------------------------
 
-Secure SHell ... SSH. Replace [class#@] with your login name in the following:
+Secure SHell ... SSH. Replace 'username' with your login name in the following:
 
-    ssh [class#@]ganesh.genomecenter.ucdavis.edu
+    ssh username@tadpole.genomecenter.ucdavis.edu
     # for example:
-    ssh class42@ganesh.genomecenter.ucdavis.edu
+    ssh username@tadpole.genomecenter.ucdavis.edu
 
 To start off: there will be many commands that will fill your screen with text. There are multiple ways to clear the clutter, and have an empty screen:
 
@@ -17,11 +17,13 @@ To start off: there will be many commands that will fill your screen with text. 
     <ctrl-k? for Macs>
     clear
 
-And once you're really done working on the command line:
+For each of the 'commands' above, we want you to press the named keys (e.g. hold 'Control' down and press 'l'). Do this when you see a key name surrounded by angled brackets (less than / greater than symbold). However, note that later on we'll use a single angled bracket in some commands.  
+
+Once you're really done working on the command line:
 
     exit  # kills the current shell!
-    # Note that any text *following* a '#' symbol is ignored.
-    # This will 'exit' (close) your shell on ganesh
+    # Note that any text *following* a '#' symbol is ignored by bash.
+    # The command above will 'exit' (close) your shell on tadpole
     # ... you'd need another 'exit' to close your local terminal (if on a Mac / Linux system)
 
 But don\'t exit yet ... or if you did, just ssh back in ... We\'ve got work to do!
@@ -32,7 +34,7 @@ Command Line Basics
 First some basics - how to look at your surroundings.
 
     pwd  # present working directory ... where am I?
-    ls   # list files here ... you should see nothing since your 'class##' homes are empty
+    ls   # list files here ... you should see nothing since your home directories are empty
     ls /tmp/  # list files somewhere else
 
 Let\'s run our first command ... because one of the first things that\'s good to know is *how to escape once you\'ve started something you don\'t want*.
@@ -65,6 +67,16 @@ So, ^C, ^D, 'q', and (from above) 'exit'. Generally can't hurt to try until one 
     n  # next pattern match ...
     N  # ... or previous pattern match
     q  # to quit
+
+
+Side Note - Meet your Prompt
+-----------------------------
+
+The 'prompt' is the thing that appears *before* your cursor on every line you can type in commands on. Yours should look like:
+
+    username@tadpole:~$    # with a single space separating the '$' from your blinking cursor
+
+This tells you who you are (username), what server you're on (tadpole), and where you are in the file system ('~' ... which is a synonym, or shortcut, for '/home/username/'). The prompt is configurable, so you can change it to display whatever you want ... but no emojis ;)
 
 
 You've Got Options
