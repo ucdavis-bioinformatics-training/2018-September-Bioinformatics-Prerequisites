@@ -17,7 +17,7 @@ To start off: there will be many commands that will fill your screen with text. 
     <ctrl-k? for Macs>
     clear
 
-For each of the 'commands' above, we want you to press the named keys (e.g. hold 'Control' down and press 'l'). Do this when you see a key name surrounded by angled brackets (less than / greater than symbold). However, note that later on we'll use a single angled bracket in some commands.  
+For each of the 'commands' above, we want you to press the named keys (e.g. hold 'Control' down and press 'l'). Do this when you see a key name surrounded by angled brackets (less than / greater than symbols). However, note that later on we'll use a single angled bracket in some commands.  
 
 Once you're really done working on the command line:
 
@@ -52,7 +52,9 @@ Let\'s run our first command ... because one of the first things that\'s good to
     <spacebar>  # next page
     <q>  # quits from more, less, 'man' pages, etc.
 
-So, ^C, ^D, 'q', and (from above) 'exit'. Generally can't hurt to try until one of them works! Now that we've seen the 'less' *paginator* (program that display output from other programs in pages, instead of all at once), here's how to move around while in it.
+So, ^C, ^D, 'q', and 'exit'. Generally can't hurt to try until one of them works! What works for 'more'?  
+
+Now that we've seen the 'more' *paginator* (program that display output from other programs in pages, instead of all at once), let's try 'less' to see how it's superior to 'more'.
 
     curl -s http://metaphorpsum.com/sentences/1000 | fold -w 80 -s | less  # pipe to 'less' paginator, instead of 'more'
     <spacebar>  # next page
@@ -72,7 +74,7 @@ So, ^C, ^D, 'q', and (from above) 'exit'. Generally can't hurt to try until one 
 Side Note - Meet your Prompt
 -----------------------------
 
-The 'prompt' is the thing that appears *before* your cursor on every line you can type in commands on. Yours should look like:
+By the way, now that we're back in the shell, the 'prompt' is the thing that appears *before* your cursor on every line you can type in commands on. Yours should look like:
 
     username@tadpole:~$    # with a single space separating the '$' from your blinking cursor
 
@@ -82,7 +84,7 @@ This tells you who you are (username), what server you're on (tadpole), and wher
 You've Got Options
 -------------------
 
-One reason you'll appreciate 'less' is that it's the default paginator for the 'man' command. 'man' stands for 'manual', and it's the main way to get more detail on any of the commands we'll introduce today. Each command can act as a basic tool, or you can add 'options' or 'flags' that modify the default behavior of the tool. These flags come in the form of '-v' ... or, when it's a more descriptive word, two dashes: '\-\-verbose' ... that's a common (but not universal) one that tells a tool that you want it to give you output with more detail. Sometimes, options require specifying amounts or strings, like '-o results.txt' or '\-\-output results.txt' ... or '-n 4' or '\-\-numCPUs 4'. Let's try some, and see what the man page for the 'list files' command 'ls' is like.
+One reason you'll appreciate 'less' is that it's the default paginator for the 'man' command. 'man' stands for 'manual', and it's the main way to get more detail on any of the commands we'll introduce today. Each command can act as a basic tool, or you can add 'options' or 'flags' that modify the default behavior of the tool. These flags *almost* always come in the form of a dash, then a single letter (e.g. '-v') ... or, when it's a more descriptive word, two dashes ('\-\-verbose') ... and by the way, 'verbose' is a common (but not universal) option that tells a tool that you want it to give you output with more detail. Sometimes, options require specifying amounts or strings, like '-o results.txt' or '\-\-output results.txt' ... or '-n 4' or '\-\-numCPUs 4'. Let's try some, and see what the man page for the 'list files' command 'ls' is like.
 
     ls -R /software
     # ack! too much going to the screen!
@@ -134,19 +136,19 @@ Absolute and Relative Paths
 The sequence above was probably confusing, if you're not used to navigating filesystems this way. You can think of paths like addresses. You can tell your friend how to go to a particular store *from where they are currently* (a 'relative' path), or *from the main Interstate Highway that everyone uses* (in this case, the root of the filesystem, '/' ... this is an 'absolute' path). Both are valid. But absolute paths can't be confused, because they tell you where to start off, and all the steps along the way. Relative paths, on the other hand, could be totally wrong for your friend *if you assume they're somewhere they're not*. With this in mind, let's try a few more:
 
     cd ~  # let's start at home
-    cd ../../home/class42/  # *relative* (start here, take two steps up, then down through home and class42)
+    cd ../../home/username/  # *relative* (start here, take two steps up, then down through home and class42)
     pwd
-    cd /home/class42/  # *absolute* (start at root, take steps)
+    cd /home/username/  # *absolute* (start at root, take steps)
     pwd
 
 Linux also tolerates 'empty' steps and loops, even if they look ugly. So:
 
     cd  # starting at your home again
-    cd /home//class42/  # used two slashes; it's treated as an empty step
-    cd ../class42/../class42/../class42/  # back and forth a few times.
-    cd /software/bwa/../bowtie/../../home/class42/  # are you lost or something?
+    cd /home//username/  # used two slashes; it's treated as an empty step
+    cd ../username/../username/../username/  # back and forth a few times.
+    cd /software/bwa/../bowtie/../../home/username/  # are you lost or something?
 
-There's no real point to such weird paths, but it helps illustrate how paths work. In the last example, an absolute path, we start at the root of the filesystem (the initial '/'), move down into the 'software' directory, then down from there into the 'bwa' directory, then back up (into the software directory), down into 'bowtie', then up twice (which gets you back to the root directory), then down through the familiar 'home' and your own 'class##' directories. 
+There's no real point to such weird paths, but it helps illustrate how paths work. In the last example, an absolute path, we start at the root of the filesystem (the initial '/'), move down into the 'software' directory, then down from there into the 'bwa' directory, then back up (into the software directory), down into 'bowtie', then up twice (which gets you back to the root directory), then down through the familiar 'home' and your own 'username' directories. 
 
 Note that the shell can be picky about how you describe a directory, or what's *in* a directory. The following two commands illustrate this difference, but just realize that you may have to experiment sometimes to get the behavior you want:
 
@@ -161,27 +163,27 @@ Tab Completion - A Real Tendon-Saver
 Using tab-completion will literally save your life. Hours of it. A single <tab> auto-completes file or directory names when there's only one name that could be completed correctly. If multiple files could satisfy the tab-completion, then nothing will happen after the first <tab>. In this case, press <tab> a second time to list all the possible completing names. Note that if you've already made a mistake that means that no files will ever be completed correctly from its current state, then <tab>'s will do nothing.
 
     touch one seven september  # create three empty files using 'touch' command
-    cat o<tab><no enter>  # will complete to 'one'
+    cat o<tab>  # will complete to 'one'
     <enter>
-    cat s<tab><no enter>  # completes up to 'se' since that's in common between seven and september
+    cat s<tab>  # completes up to 'se' since that's in common between seven and september
     <tab><no enter>  # this second tab should cause listing of seven and september
     v<tab><no enter>  # now it's unique to-, and should complete to seven
     <enter>  # runs 'cat seven' command
     # we often literally autocomplete commands letter by letter
     # comes in handy if we don't exactly remember what name we want
-    ls /hom<tab>j<tab><tab>f<tab>  # completes to my home directory, /home/jfass/
+    ls /hom<tab>j<tab><tab>f<tab>  # *probably* completes to my home directory, /home/jfass/
 
-I can't overstate how useful tab completion is. You should get used to using it constantly. Watch experienced users type and they maniacally hit tab once or twice in between almost every character. You don't have to go that far, of course, but get used to constantly getting feedback from hitting tab and you will save yourself a huge amount of typing and trying to remember weird directory and filenames.
+**I can't overstate how useful tab completion is.** You should get used to using it constantly. Watch experienced users type and they maniacally hit tab once or twice in between almost every character. You don't have to go that far, of course, but get used to constantly getting feedback from hitting tab and you will save yourself a huge amount of typing and trying to remember weird directory and filenames.
 
 CHALLENGE
 -----------
 
-After returning to your home directory (just enter 'cd' by itself), verify that the two following commands are equivalent (replacing 'class42' with your actual username):
+After returning to your home directory (just enter 'cd' by itself), verify that the two following commands are equivalent (replacing, as usual, 'username' with your actual username):
 
-    cd ../../home/class42/; pwd  # pwd gives you your Present Working Directory
-    cd ../../../../../../../home/class42/; pwd
+    cd ../../home/username/; pwd  # pwd gives you your Present Working Directory; semicolons *complete* commands just like the '\n' (newline character) does
+    cd ../../../../../../home/../home/username/; pwd
 
-Why are these very different-looking commands equivalent??
+Why might these very different-looking commands be equivalent??
 
 Create and Destroy
 -------------------
@@ -191,9 +193,9 @@ OK, so let's get down to actually making some changes to the filesystem.
     cd  # home again
     mkdir temp  # make a directory called 'temp'
     cd temp/
-    echo 'Hello, world!' > first.txt  # push text into a file using the '>' character
+    echo 'Hello, world!' > first.txt  # push text into a file using the '>' (redirection) character
     file first.txt  # tells us what kind of file it is
-    cat first.txt  # 'cat' means 'concatenate'
+    cat first.txt  # 'cat' means 'concatenate' a file or files' contents and dump to the screen
 
 If a file isn't text, you probably don't want to look at it. Binary ('data') files that get pushed to the screen by the 'cat' command are chewed up in character sized bites, so your terminal displays whichever (unintended) character that bite corresponds to in the ASCII table ... which can be weird non-printing characters like bells and interrupts that can really muck up your shell! So, stick to 'cat'ing text files.
     
@@ -237,24 +239,15 @@ The '>' character redirects output of a command that would normally go to the sc
     cut -c 1-3 test.txt  # cuts character one to three, from every line, from file 'test.txt'
     cat test.txt | cut -c 1-3  # same thing, piping output of one command into input of another
     cat test.txt | cut -c 1-3 | sort -r
-    cat test.txt | cut -c 1-3 | sort -r | grep s
+    cat test.txt | cut -c 1-3 | sort -r | grep s  # 'grep' finds string matches
     # pipes cat to cut to sort (-r means reverse order sort, grep searches for pattern matches)
 
 This is a great way to build up a set of operations while inspecting the output of each step in turn. We'll do more of this in a bit.
 
-REALLY CHALLENGING CHALLENGE
--------------------------------
+CHALLENGE
+-------------
 
-We (the Bioinformatics Core) install all of the biology-related tools in the '/software/' directory, in our spare time. Are we more productive at any time of the year? So, the idea is to look at the dates the software was installed and find when the most installations occurred.
-
-* HINT #1: Use the 'man' pages for tools we've seen already.
-* HINT #2: Sometimes it's useful to turn several of the same character into only one ... for example:
-
-    tr "LOOOOL" "LOL"
-
-But maybe there's a way to make this behavior more general? See the man page for the translate command 'tr'.
-* HINT #3: Got a sorted list? Squeeze all repeated entries into one using the 'uniq' command. But maybe 'uniq' can do more than just squeeze repeats.
-
+The 'head' and 'tail' commands view the first 10 (by default) lines of a file and last 10 lines of a file (type 'man head' or 'man tail' to consult their manuals). How would you create a second text file - let's say 'test2.txt' - with the line that says 'third' *before* the line that says 'second'? Without directly editing the file with a text editor, of course ...
 
 History Repeats Itself
 -----------------------
@@ -273,8 +266,9 @@ Linux remembers everything you've done (at least in the current shell session), 
     history | tail -n 30
     history | less
     cat test.txt | cut -c 1-3 | sort -r | grep s > reallyImportantResult.txt
+    rm reallyImportantResult.txt  # whoops! didn't mean to do that!
     history | tail
-    !560  # re-executes 560th command (yours will have different numbers; choose your last one)
+    !560  # re-executes 560th command (yours will have different numbers; choose the one that recreates your really important result!)
 
 You can also search your history from the command line:
 
@@ -293,10 +287,10 @@ Editing Yourself
 
 Here are some more ways to make editing previous commands, or novel commands that you're building up, easier:
 
-    <up><up>  # go to some previous command
+    <up><up>  # go to some previous command, just to have something to work on
     <ctrl-a>  # go to the beginning of the line
     <ctrl-e>  # go to the end of the line
-    # now use left and right to move to a single word (surrounded by whitespace)
+    # now use left and right to move to a single word (surrounded by whitespace: spaces or tabs)
     <ctrl-k>  # delete from here to end of line
     <ctrl-w>  # delete from here to beginning of preceeding word
     blah blah blah<ctrl-w><ctrl-w>  # leaves you with only one 'blah'
@@ -307,12 +301,12 @@ Compression
 
 With BIG DATA(TM), you'll often see compressed files, or whole compressed folders.
 
-    gzip test.txt
-    file test.txt.gz
+    gzip test.txt  # compress and add the '.gz' extension
+    file test.txt.gz  # what kind of file is it?
     gunzip -c test.txt.gz | more  # '-c' leaves the original file alone, but dumps expanded output to screen
     ls -ltrha  # see? nothing's changed
-    gunzip test.txt.gz  # now the file should change
-    bzip2 test.txt; bunzip2 test.txt.bz2  # note the ';' is a substitute for <enter>
+    gunzip test.txt.gz  # now the file should change, and the '.gz' extension disapper
+    bzip2 test.txt; bunzip2 test.txt.bz2  # alternative compression algorithm
 
 
 Archives
@@ -338,7 +332,7 @@ This gets a heading all its own. Because when you're on the command line, there'
     # -r = recursively remove sub-directories, -f means *force* (auto-'yes')
     # We actually want to use those directories, so un-archive them again!
 
-Obviously, be careful with 'rm -rf'. 
+Obviously, be careful with 'rm -rf'. There's pretty much no way to 'un-delete' something on the command line.
 
 
 BASH Wildcard Characters and Find
@@ -346,35 +340,31 @@ BASH Wildcard Characters and Find
 
 When we want to specify or operate on sets of files all at once.
 
-    ls ?hiX/Illumina  # list files in Illumina sub-directory of any directory ending in 'hiX'
+    ls ?hiX/Illumina  # list files in Illumina sub-directory of any directory named with four characters, ending in 'hiX'
     ls PhiX/Illumina/RTA/Sequence/*/*.fa  # list all .fa files a few directories down
     # So, '?' fills in for zero or one character, '*' fills in for zero or more characters
-    find . -name "*.fa"
+    find . -name "*.fa"  # 'find' does what it says, recursing into the specified directory ('.' in this case)
     find . -name "*.f?"  # how is this different from the previous command?
 
-SOMEWHAT CHALLENGING CHALLENGE
----------------------------------
+CHALLENGE
+--------------
 
-Many types of software, including GNU/Linux itself, have directories named 'bin' at various levels, which are meant to hold the 'binary', compiled, executable tools themselves (as opposed to notes about the tools, data files, source code used to create the binaries, etc.). See if you can count how many 'bin' directories are in the /software directories.
+Many programs and data archives contain files named something like 'readme' or 'README' that contains important information for the user. How many of these files are there in the PhiX directory tree? How would you look at their contents? BONUS: Can you find out how many times the Illumina Adapter sequence (AGATCGGAAGAG) appears in fasta files?
 
-* HINT #1: The 'find' man page is wild and wooly; try searching for the *second* occurrence of the text '-type c'.
-* HINT #2: Acquaint yourself with the useful 'wc' tool.
-* HINT #3: The /software directory is a little special. Try searching *underneath* it, whatever that's supposed to mean. 
+Quick Note(s) About the Quote(s) (also, BASH Variables)
+-----------------------------------------------------------
 
-Quick Note About the Quote(s)
--------------------------------
-
-The quote characters " and ' are different. In general, single quotes preserve the *literal* meaning of all characters between them. On the other hand, double quotes allow the shell to see what's between them and make substitutions when appropriate. For example:
+The quote characters " and ' are different. In general, single quotes preserve the *literal* meaning of all characters between them. On the other hand, double quotes allow the shell to see what's between them and make substitutions when appropriate. For example, let's define a BASH variable with the name VRBL:
 
     VRBL=someText
-    echo '$VRBL'
-    echo "$VRBL"
+    echo '$VRBL'  # normally, the '$' operator retrieves a variable's value
+    echo "$VRBL"  # that's better; double quotes allow evaluation
 
 However, some commands try to be 'smarter' about this behavior, so it's a little hard to predict what will happen in all cases. It's safest to experiment first when planning a command that depends on quoting ... list filenames first, instead of changing them, etc. Finally, the 'backtic' characters \` (same key - unSHIFTED - as the tielde ~) causes the shell to interpret what's between them as a command, and return the result.
 
     echo `$VRBL`  # tries to execute a command with the name *someText*
     newVRBL=`echo $VRBL`
-    echo $vewVRBL
+    echo $newVRBL
 
 Delightfully confusing, eh? Just be prepared to experiment.
 
@@ -387,9 +377,9 @@ We just found the phiX-174 genome, so let's copy it to our current directory so 
     # Note how we copied the 'genome.fa' file to a different name: 'phix.fa'
     wc -l phix.fa
 
-We can use the 'grep' command to search for matches to patterns (more flexibly than by using less's '/' key). 'grep' comes from '**g**lobally search for a **r**egular **e**xpression and **p**rint'. 
+We can use the 'grep' command to search for matches to patterns (more flexibly than by using less's '/' key). The name 'grep' comes from '**g**lobally search for a **r**egular **e**xpression and **p**rint'. 
 
-    grep -c '>' phix.fa  # only one FASTA sequence entry, since only one header line ('>gi|somethingsomething...')
+    grep -c '>' phix.fa  # '-c' (count) finds only one FASTA sequence entry, since there's only one header line ('>gi|somethingsomething...')
     cat phix.fa  # this may not be useful for anything larger than a virus!
     # let's look at start codon and 2 following:
     grep "ATG......" phix.fa  # '.' characters are the single-character wildcards for grep
@@ -405,12 +395,14 @@ We can use the 'grep' command to search for matches to patterns (more flexibly t
     grep -o "ATG......" phix.fa | cut -c4-6 | sort | uniq -c | sort -rn -k1,1
     # ... which gives us the most common codons first
 
-This may not be a particularly useful thing to do with a genomic FASTA file, but it illustrates the process by which one can build up a string of operations, using pipes, in order to ask quantitative questions about sequence content. More generally than that, this process allows one to ask questions about files and file contents and the operating system, and verify at each step that the process so far is working as expected. The command line is, in this sense, really a modular workflow management system.
+This may or may not be a particularly useful thing to do with a genomic FASTA file, but it illustrates the process by which one can build up a string of operations, using pipes, in order to ask quantitative questions about sequence content. More generally than that, this process allows one to ask questions about files and file contents and the operating system, and verify at each step that the process so far is working as expected. The command line is, in this sense, really a modular workflow management system.
 
 CHALLENGE
 ----------
 
-The commands above only find start codons on the forward strand. How would you find the most common *first codons* (after the ATG) on the reverse strand? BONUS: Can you add these in with the codons from the example above, and count them all at once?
+The commands above only find start codons on the forward strand. How would you find the most common second codons (after the ATG) on the reverse strand? CHALLENGING BONUS: Can you add these in with the codons from the example above, and count them all at once? Note that the 'rev' command reverses strings, and the 'tr' command translates:
+
+    echo CAFE | tr 'ABCDEF' 'abcdef'
 
 Symbolic Links
 ---------------
@@ -516,7 +508,7 @@ Finally, the 'nohup' command (from 'no hangup'!) makes jobs extra resistant to l
 
     nohup sleep 1000000 &
     # [1] 34993
-    # class##@c4-0:~/CLB$ nohup: ignoring input and appending output to ‘nohup.out’
+    # nohup: ignoring input and appending output to nohup.out
     jobs
     # [1]+  Running                 nohup sleep 1000000 &
     # output is dumped into the 'nohup.out' file unless specifically redirected in your command
@@ -538,8 +530,9 @@ Often it's useful to define a whole string of commands to run on some input, so 
     nano test.sh
     # nano now occupies the whole screen; see commands at the bottom
     # type/paste in the following ...
-    # (note that '#!' is an interpreted command to the shell, not a comment)
+    # (note that '#!' is an interpreted command to the shell, not a comment ... it should be in the first line of your script)
     # (also note that you may have to add and delete spaces and <enter>s to get the spacing right, though that's not critical)
+
     #!/bin/bash
     grep -o . $1 | \
         sort | \
