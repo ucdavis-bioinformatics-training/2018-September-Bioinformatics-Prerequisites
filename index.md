@@ -27,6 +27,6 @@ Wednesday
 * [Using Screen to Manage Multiple Projects - TALK](wednesday/screen.pdf)
 * [Clusters & Modules - HANDS-ON](wednesday/cluster.md)
 
-Possible extra lecture
+Possible extra lectures
 ----------
 * [Introduction to Bioinformatics - TALK](tuesday/What_is_Bioinformatics.pdf)
