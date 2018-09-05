@@ -168,6 +168,47 @@ Now, we will use this file to generate the list in the for loop by using the bac
 **HARD CHALLENGE:**
 Use a for loop with pipes to recreate the result from above where we wanted to find how many directory names in /home began with each letter. You will need to create a for loop to get the letters and then pipe the result of the for loop to commands to do the counting.
 
+
+Bash Scripts
+---------------
+
+Let's imagine we have three samples: control, strain A, and strain B, and each has a (potentially) different genome sequence. If we had a series of many steps to perform on each sample's genome, we could put all the steps into a script, and run the script once for each sample (possible even in a for-loop, as above). So let's prepare a "pretend" genome sequence for each sample. The control sample will have the same sequence as the reference (our phiX genome), so:
+
+    cp genome.fa control.fa
+
+Strain A will have mutated, due to selective pressure:
+
+    cat genome.fa | sed 's/ATGCC/ATACC/g' > strainA.fa  # G's to A's, in a particular motif
+
+And strain B will have different mutations:
+
+    cat genome.fa | sed 's/GCCTG/GCCCTG/g' > strainB.fa  # C insertions, in a particular motif
+
+Now that we've got our genome sequences, let's create a script to align a genome sequence to the phiX reference genome. Do this using the nano text editor ... open nano to edit a file genome-align.sh like this:
+
+    nano genome-align.sh
+
+Once in nano, type (or copy) away: what you type is what you see is what you get. Special commands are listed along the bottom of the screen. Make your script look like this:
+
+    #!/bin/bash
+    echo "Running $0 to align $2 to the $1 reference, using fake parameter value $3"
+    reference=$1  # assume this has been indexed using 'bwa index'
+    sample=$2
+    fakeParam=$3
+    bwa mem $1 $2 1> $2.sam 2> $2.err
+
+Then save your file (\<control-o\>) and exit nano (\<control-x\>). In our script, $0 is replaced by the name of the script, $1 is replaced by the first word *after* the script name (when the script is run), $2 is replaced by the second word, and so on. So we can run our script by first giving ourselves execute permissions, then running it over all samples with the following loop:
+
+    ls -l genome-align.sh  # what permissions do you have?
+    chmod u+x genome-align.sh  # u=user ... you! and +x means add execute permission
+    ls -l genome-align.sh  # what's changed?
+    # here's the loop:
+    for i in {"control.fa","strainA.fa","strainB.fa"}; do
+    ./genome-align.sh genome.fa $i 700
+    done
+
+What is the value '700' used for in our script? Do you see how the output files got the names they have? Finally, do the alignments in SAM format make sense?
+
 Find
 -----
 
