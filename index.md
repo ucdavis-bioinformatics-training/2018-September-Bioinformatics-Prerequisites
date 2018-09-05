@@ -30,7 +30,7 @@ Wednesday
 Thursday
 ----------
 
-* [Introduction to R](thursday/Intro2R.md) (talk)
+* [Introduction to R](thursday/Intro2R/Intro2R)
 
 
 Possible extra lecture
