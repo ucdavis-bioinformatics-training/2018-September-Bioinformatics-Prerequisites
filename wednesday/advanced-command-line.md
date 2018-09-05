@@ -4,11 +4,11 @@ Advanced Command-Line
 The sed command
 ----------------
 
-Let's take a closer look at the 'sed' command. sed (short for stream editor) is a command that allows you to manipulate character data in various ways. One useful thing it can do is substitution. First, make a directory called "advanced" in your home directory and go into it.
+Let's take a look at the 'sed' command. sed (short for stream editor) is a command that allows you to manipulate character data in various ways. One useful thing it can do is substitution. First, make a directory called "advanced" to work in, for this document. If you have access to /share/workshop, then make the "advanced" directory under your username there. If you don't, just put the "advanced" directory in your home.
 
-    cd
+    cd /share/workshop/username/  # or, if this fails, just 'cd ~' or 'cd'
     mkdir advanced
-    cd advanced
+    cd advanced/
 
 Let's copy over a simple file to work on:
 
@@ -174,7 +174,8 @@ Bash Scripts
 
 Let's imagine we have three samples: control, strain A, and strain B, and each has a (potentially) different genome sequence. If we had a series of many steps to perform on each sample's genome, we could put all the steps into a script, and run the script once for each sample (possible even in a for-loop, as above). So let's prepare a "pretend" genome sequence for each sample. The control sample will have the same sequence as the reference (our phiX genome), so:
 
-    cp genome.fa control.fa
+    cd /share/workshop/username/advanced/  # just making sure we're in the same place; use your home if necessary
+    cp ../CLI/genome.fa control.fa
 
 Strain A will have mutated, due to selective pressure:
 
