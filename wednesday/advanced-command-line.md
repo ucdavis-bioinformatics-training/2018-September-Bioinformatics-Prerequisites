@@ -195,7 +195,7 @@ Once in nano, type (or copy) away: what you type is what you see is what you get
     reference=$1  # assume this has been indexed using 'bwa index'
     sample=$2
     fakeParam=$3
-    bwa mem $1 $2 1> $2.sam 2> $2.err
+    bwa mem ${reference} ${sample} 1> ${sample}.sam 2> ${sample}.err
 
 Then save your file (\<control-o\>) and exit nano (\<control-x\>). In our script, $0 is replaced by the name of the script, $1 is replaced by the first word *after* the script name (when the script is run), $2 is replaced by the second word, and so on. So we can run our script by first giving ourselves execute permissions, then running it over all samples with the following loop:
 
