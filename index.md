@@ -28,6 +28,12 @@ Wednesday
 * [Clusters & Modules - HANDS-ON](wednesday/cluster.md)
 * [A Simple RNA-Seq Workflow](wednesday/bioworkflow.md)
 
+Thursday
+----------
+
+* [Introduction to R](thursday/Intro2R/Intro2R)
+
+
 Possible extra lecture
 ----------
 * [Introduction to Bioinformatics - TALK](tuesday/What_is_Bioinformatics.pdf)
