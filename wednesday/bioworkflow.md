@@ -143,6 +143,8 @@ Look at manual section for "Running mapping jobs". We will be using those option
 		--outFileNamePrefix C61_aligned \
 		--readFilesIn ../01-trimmed/C61_trimmed_R1.fastq.gz ../01-trimmed/C61_trimmed_R2.fastq.gz
 
+Now run the other one:
+
 	STAR --runThreadN 1 \
 		--genomeDir ../ref/star_index \
 		--readFilesCommand zcat \
