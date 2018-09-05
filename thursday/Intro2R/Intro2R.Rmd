@@ -546,6 +546,13 @@ rep(1:3, each=3)
 
 ```
 
+## One useful function to find out information on a variable: str()
+
+```{r}
+str(data2)
+```
+
+
 ## Two special functions: lapply() and sapply()
 ### lapply() is to apply a given function to every element of a list and obtain a list as results.
 ### The difference between lapply() and apply() is that lapply() can be applied on objects like dataframes, lists or vectors. Function apply() only works on an array of dimension 2 or a matrix.

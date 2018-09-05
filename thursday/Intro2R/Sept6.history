@@ -1,8 +1,3 @@
 library(rmarkdown)
 rmarkdown::render("Intro2R.Rmd")
-getwd()
-rmarkdown::render("Intro2R.Rmd")
-rmarkdown::render("Intro2R.Rmd")
-rmarkdown::render("Intro2R.Rmd")
-rmarkdown::render("Intro2R.Rmd")
 rmarkdown::render("Intro2R.Rmd")
