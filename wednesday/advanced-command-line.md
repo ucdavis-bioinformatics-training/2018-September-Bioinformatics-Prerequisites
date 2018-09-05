@@ -210,7 +210,11 @@ This one has a lot of stuff in it to set up the environment. Now take a look at 
 
     nano ~/.bash_profile
 
-Add ":." to the PATH variable. Now, next time you log in, "." will be in your PATH.
+Add ":." to the PATH variable by adding this line:
+
+**export PATH=$PATH:.**
+
+ Now, next time you log in, "." will be in your PATH.
 
 Another thing that is very useful are aliases. An alias is a user-defined command that is a shortcut for another command. For example, let's say you typed the command "ls -ltrh" a lot and it would be easier to have it be a simpler command. Use an alias:
 

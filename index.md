@@ -26,6 +26,7 @@ Wednesday
 * [Advanced Command Line Topics - HANDS-ON](wednesday/advanced-command-line.md)
 * [Using Screen to Manage Multiple Projects - TALK](wednesday/screen.pdf)
 * [Clusters & Modules - HANDS-ON](wednesday/cluster.md)
+* [A Simple RNA-Seq Workflow](wednesday/bioworkflow.md)
 
 Possible extra lecture
 ----------
