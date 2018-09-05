@@ -117,7 +117,7 @@ The filesystem you're working on is like the branching root system of a tree. Th
     cd /  # go to root of tree's root system
     cd home  # go to where everyone's homes are
     pwd
-    cd class42  # use your actual home, not class42
+    cd username  # use your actual home, not 'username'
     pwd
     cd /
     pwd
@@ -136,7 +136,7 @@ Absolute and Relative Paths
 The sequence above was probably confusing, if you're not used to navigating filesystems this way. You can think of paths like addresses. You can tell your friend how to go to a particular store *from where they are currently* (a 'relative' path), or *from the main Interstate Highway that everyone uses* (in this case, the root of the filesystem, '/' ... this is an 'absolute' path). Both are valid. But absolute paths can't be confused, because they tell you where to start off, and all the steps along the way. Relative paths, on the other hand, could be totally wrong for your friend *if you assume they're somewhere they're not*. With this in mind, let's try a few more:
 
     cd ~  # let's start at home
-    cd ../../home/username/  # *relative* (start here, take two steps up, then down through home and class42)
+    cd ../../home/username/  # *relative* (start here, take two steps up, then down through home and username)
     pwd
     cd /home/username/  # *absolute* (start at root, take steps)
     pwd
@@ -175,8 +175,8 @@ Using tab-completion will literally save your life. Hours of it. A single <tab> 
 
 **I can't overstate how useful tab completion is.** You should get used to using it constantly. Watch experienced users type and they maniacally hit tab once or twice in between almost every character. You don't have to go that far, of course, but get used to constantly getting feedback from hitting tab and you will save yourself a huge amount of typing and trying to remember weird directory and filenames.
 
-CHALLENGE
------------
+CHALLENGE #1
+-------------
 
 After returning to your home directory (just enter 'cd' by itself), verify that the two following commands are equivalent (replacing, as usual, 'username' with your actual username):
 
@@ -244,7 +244,7 @@ The '>' character redirects output of a command that would normally go to the sc
 
 This is a great way to build up a set of operations while inspecting the output of each step in turn. We'll do more of this in a bit.
 
-CHALLENGE
+CHALLENGE #2
 -------------
 
 The 'head' and 'tail' commands view the first 10 (by default) lines of a file and last 10 lines of a file (type 'man head' or 'man tail' to consult their manuals). How would you create a second text file - let's say 'test2.txt' - with the line that says 'third' *before* the line that says 'second'? Without directly editing the file with a text editor, of course ...
@@ -277,7 +277,7 @@ You can also search your history from the command line:
     <ctrl-c>  # get out of recursive search
     <ctr-r>  # repeat <ctrl-r> to find successively older string matches
 
-CHALLENGE
+CHALLENGE #3
 -------------
 
 What's the first command you executed today? How many times have you used the 'man' command today? Whatever that number is, it should be more! Just kidding. Sort of.
@@ -346,7 +346,7 @@ When we want to specify or operate on sets of files all at once.
     find . -name "*.fa"  # 'find' does what it says, recursing into the specified directory ('.' in this case)
     find . -name "*.f?"  # how is this different from the previous command?
 
-CHALLENGE
+CHALLENGE #4
 --------------
 
 Many programs and data archives contain files named something like 'readme' or 'README' that contains important information for the user. How many of these files are there in the PhiX directory tree? How would you look at their contents? BONUS: Can you find out how many times the Illumina Adapter sequence (AGATCGGAAGAG) appears in fasta files?
@@ -397,8 +397,8 @@ We can use the 'grep' command to search for matches to patterns (more flexibly t
 
 This may or may not be a particularly useful thing to do with a genomic FASTA file, but it illustrates the process by which one can build up a string of operations, using pipes, in order to ask quantitative questions about sequence content. More generally than that, this process allows one to ask questions about files and file contents and the operating system, and verify at each step that the process so far is working as expected. The command line is, in this sense, really a modular workflow management system.
 
-CHALLENGE
-----------
+CHALLENGE #5
+-------------
 
 The commands above only find start codons on the forward strand. How would you find the most common second codons (after the ATG) on the reverse strand? CHALLENGING BONUS: Can you add these in with the codons from the example above, and then count them all together? Note that the 'rev' command reverses strings, and the 'tr' command translates:
 
@@ -585,8 +585,8 @@ Let's install a straightforward tool ... another read aligner by the author of B
 
 Now you can run this tool (an executable file) by fully specifying the path to your 'tools' directory from wherever you're running the tool. In addition, you could copy, move, or put symbolic links to the tool in a common place, like /usr/bin/, which should be in everybody's path.
 
-CHALLENGE
-------------
+CHALLENGE #6
+--------------
 
 Can you run the minimap2 aligner to align the phiX sequence against our genome.fa reference (once again, ignoring that they're the same data)? Create another SAM file - say, aln.minimap2.sam - that we can compare to our earlier alignment that used BWA MEM. HINT: options may be involved.
 
