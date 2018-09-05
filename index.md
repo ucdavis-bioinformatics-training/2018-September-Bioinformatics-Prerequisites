@@ -23,6 +23,7 @@ Wednesday
 ----------
 
 * Review and Q&A
+* [Warmup / Review - HANDS-ON](wednesday/warmup.md)
 * [Advanced Command Line Topics - HANDS-ON](wednesday/advanced-command-line.md)
 * [Using Screen to Manage Multiple Projects - TALK](wednesday/screen.pdf)
 * [Clusters & Modules - HANDS-ON](wednesday/cluster.md)
