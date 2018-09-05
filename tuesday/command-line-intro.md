@@ -117,7 +117,7 @@ The filesystem you're working on is like the branching root system of a tree. Th
     cd /  # go to root of tree's root system
     cd home  # go to where everyone's homes are
     pwd
-    cd class42  # use your actual home, not class42
+    cd username  # use your actual home, not 'username'
     pwd
     cd /
     pwd
@@ -136,7 +136,7 @@ Absolute and Relative Paths
 The sequence above was probably confusing, if you're not used to navigating filesystems this way. You can think of paths like addresses. You can tell your friend how to go to a particular store *from where they are currently* (a 'relative' path), or *from the main Interstate Highway that everyone uses* (in this case, the root of the filesystem, '/' ... this is an 'absolute' path). Both are valid. But absolute paths can't be confused, because they tell you where to start off, and all the steps along the way. Relative paths, on the other hand, could be totally wrong for your friend *if you assume they're somewhere they're not*. With this in mind, let's try a few more:
 
     cd ~  # let's start at home
-    cd ../../home/username/  # *relative* (start here, take two steps up, then down through home and class42)
+    cd ../../home/username/  # *relative* (start here, take two steps up, then down through home and username)
     pwd
     cd /home/username/  # *absolute* (start at root, take steps)
     pwd
