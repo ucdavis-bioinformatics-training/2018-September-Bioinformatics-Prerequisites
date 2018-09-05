@@ -1105,7 +1105,7 @@ ls()
 ##  [9] "friend_ages"   "friend_groups" "friend_names"  "friends"      
 ## [13] "has_child"     "hello"         "is_adult"      "is_female"    
 ## [17] "is_male"       "my_data"       "my_friends"    "my_list"      
-## [21] "my_matrix"     "title"         "x"             "y"
+## [21] "my_matrix"     "title"
 ```
 
 ```r
@@ -1141,6 +1141,42 @@ rep(1:3, each=3)
 ?rep()
 ```
 
+## One useful function to find out information on a variable: str()
+
+
+```r
+str(data2)
+```
+
+```
+## 'data.frame':	33602 obs. of  24 variables:
+##  $ C61 : int  322 149 15 687 1 1447 2667 297 0 74 ...
+##  $ C62 : int  346 87 32 469 1 1032 2472 226 0 79 ...
+##  $ C63 : int  256 162 35 568 5 1083 2881 325 0 138 ...
+##  $ C64 : int  396 144 22 651 4 1204 2632 341 0 85 ...
+##  $ C91 : int  372 189 24 885 5 1413 5120 199 0 68 ...
+##  $ C92 : int  506 169 33 978 3 1484 6176 180 0 41 ...
+##  $ C93 : int  361 147 21 794 0 1138 7088 195 0 110 ...
+##  $ C94 : int  342 108 35 862 2 938 6810 107 0 81 ...
+##  $ I561: int  638 163 18 799 4 1247 2258 377 0 72 ...
+##  $ I562: int  488 141 8 769 3 1516 1808 534 0 76 ...
+##  $ I563: int  440 119 54 725 1 984 2279 300 0 184 ...
+##  $ I564: int  479 147 35 715 0 1044 2299 223 0 156 ...
+##  $ I591: int  770 182 23 811 2 1374 4755 298 0 96 ...
+##  $ I592: int  430 156 8 567 8 1355 3128 318 0 70 ...
+##  $ I593: int  656 153 16 831 8 1437 4419 397 0 77 ...
+##  $ I594: int  467 177 24 694 1 1577 3726 373 0 77 ...
+##  $ I861: int  143 43 42 345 0 412 1452 86 0 174 ...
+##  $ I862: int  453 144 17 575 4 1338 1516 266 0 113 ...
+##  $ I863: int  429 114 22 605 0 1051 1455 281 0 69 ...
+##  $ I864: int  206 50 39 404 3 621 1429 164 0 176 ...
+##  $ I891: int  567 161 26 735 5 1434 3867 230 0 69 ...
+##  $ I892: int  458 195 28 651 7 1552 4718 270 0 80 ...
+##  $ I893: int  520 157 39 725 0 1248 4580 220 0 81 ...
+##  $ I894: int  474 144 30 591 5 1186 3575 229 0 62 ...
+```
+
+
 ## Two special functions: lapply() and sapply()
 ### lapply() is to apply a given function to every element of a list and obtain a list as results.
 ### The difference between lapply() and apply() is that lapply() can be applied on objects like dataframes, lists or vectors. Function apply() only works on an array of dimension 2 or a matrix.
@@ -1164,25 +1200,25 @@ lapply(1:dim(data)[1], function(x){sum(data[x,])})
 
 ```
 ## [[1]]
-## [1] -2.659597
+## [1] -1.401704
 ## 
 ## [[2]]
-## [1] 2.062721
+## [1] 1.344334
 ## 
 ## [[3]]
-## [1] -1.326421
+## [1] -4.068717
 ## 
 ## [[4]]
-## [1] -0.8056628
+## [1] 4.531183
 ## 
 ## [[5]]
-## [1] 2.531377
+## [1] 2.412818
 ## 
 ## [[6]]
-## [1] 1.711103
+## [1] 2.692288
 ## 
 ## [[7]]
-## [1] -1.24998
+## [1] -0.5391086
 ```
 
 ```r
@@ -1190,8 +1226,8 @@ apply(data, MARGIN=1, sum)
 ```
 
 ```
-## [1] -2.6595968  2.0627206 -1.3264210 -0.8056628  2.5313768  1.7111027
-## [7] -1.2499800
+## [1] -1.4017037  1.3443342 -4.0687167  4.5311834  2.4128181  2.6922877
+## [7] -0.5391086
 ```
 
 ```r
@@ -1204,8 +1240,6 @@ lapply(1:dim(data)[1], function(x){log10(sum(data[x,]))})
 ## Warning in FUN(X[[i]], ...): NaNs produced
 
 ## Warning in FUN(X[[i]], ...): NaNs produced
-
-## Warning in FUN(X[[i]], ...): NaNs produced
 ```
 
 ```
@@ -1213,19 +1247,19 @@ lapply(1:dim(data)[1], function(x){log10(sum(data[x,]))})
 ## [1] NaN
 ## 
 ## [[2]]
-## [1] 0.3144404
+## [1] 0.1285072
 ## 
 ## [[3]]
 ## [1] NaN
 ## 
 ## [[4]]
-## [1] NaN
+## [1] 0.6562116
 ## 
 ## [[5]]
-## [1] 0.4033568
+## [1] 0.3825246
 ## 
 ## [[6]]
-## [1] 0.2332761
+## [1] 0.4301215
 ## 
 ## [[7]]
 ## [1] NaN
@@ -1247,12 +1281,10 @@ sapply(1:dim(data)[1], function(x){log10(sum(data[x,]))})
 ## Warning in FUN(X[[i]], ...): NaNs produced
 
 ## Warning in FUN(X[[i]], ...): NaNs produced
-
-## Warning in FUN(X[[i]], ...): NaNs produced
 ```
 
 ```
-## [1]       NaN 0.3144404       NaN       NaN 0.4033568 0.2332761       NaN
+## [1]       NaN 0.1285072       NaN 0.6562116 0.3825246 0.4301215       NaN
 ```
 
 ### If the "simplify" parameter is turned off, sapply() will produced exactly the same results as lapply(), in the form of a list. By default, "simplify" is turned on.
@@ -1267,8 +1299,6 @@ sapply(1:dim(data)[1], function(x){log10(sum(data[x,]))}, simplify=FALSE)
 ## Warning in FUN(X[[i]], ...): NaNs produced
 
 ## Warning in FUN(X[[i]], ...): NaNs produced
-
-## Warning in FUN(X[[i]], ...): NaNs produced
 ```
 
 ```
@@ -1276,19 +1306,19 @@ sapply(1:dim(data)[1], function(x){log10(sum(data[x,]))}, simplify=FALSE)
 ## [1] NaN
 ## 
 ## [[2]]
-## [1] 0.3144404
+## [1] 0.1285072
 ## 
 ## [[3]]
 ## [1] NaN
 ## 
 ## [[4]]
-## [1] NaN
+## [1] 0.6562116
 ## 
 ## [[5]]
-## [1] 0.4033568
+## [1] 0.3825246
 ## 
 ## [[6]]
-## [1] 0.2332761
+## [1] 0.4301215
 ## 
 ## [[7]]
 ## [1] NaN
@@ -1320,10 +1350,10 @@ apply(data, 2, mean)
 ```
 
 ```
-##          V1          V2          V3          V4          V5          V6 
-## -0.24987561  0.47801399  0.03910646  0.19171842 -0.41184420 -0.52636739 
-##          V7 
-##  0.51689684
+##           V1           V2           V3           V4           V5 
+## -0.002683872 -0.077189705 -0.146410848 -0.148431565  0.905906853 
+##           V6           V7 
+##  0.427477253 -0.248511762
 ```
 
 Calculate the range of expression for each sample.
@@ -1334,12 +1364,12 @@ apply(data, 2, range)
 ```
 
 ```
-##             V1        V2        V3         V4         V5         V6
-## [1,] -1.015390 -1.094813 -1.568178 -0.3856273 -1.6412241 -1.8033417
-## [2,]  1.139016  1.681800  1.108806  0.9709535  0.9496781  0.5598077
+##             V1         V2        V3        V4         V5         V6
+## [1,] -1.663860 -1.0972968 -1.122532 -1.043769 -0.3266086 -0.7571248
+## [2,]  1.794016  0.6737346  1.659351  1.379630  1.7855649  1.3129704
 ##             V7
-## [1,] -1.540213
-## [2,]  2.714043
+## [1,] -2.221894
+## [2,]  1.429841
 ```
 
 Calculate the quantiles of each samples.
@@ -1350,18 +1380,18 @@ apply(data, 2, quantile)
 ```
 
 ```
-##              V1         V2         V3         V4          V5          V6
-## 0%   -1.0153902 -1.0948134 -1.5681784 -0.3856273 -1.64122412 -1.80334168
-## 25%  -0.7759896 -0.1886755 -0.4871089 -0.1500430 -0.86648618 -1.32705657
-## 50%  -0.6071768  0.2387930  0.1175665  0.1318640 -0.39674082 -0.09257942
-## 75%   0.1432004  1.4488346  0.7948844  0.4624624 -0.03082512  0.15282740
-## 100%  1.1390163  1.6818000  1.1088062  0.9709535  0.94967813  0.55980771
-##              V7
-## 0%   -1.5402131
-## 25%  -0.4331842
-## 50%   0.8038025
-## 75%   1.2535067
-## 100%  2.7140435
+##              V1         V2         V3         V4         V5          V6
+## 0%   -1.6638596 -1.0972968 -1.1225319 -1.0437695 -0.3266086 -0.75712485
+## 25%  -0.5056140 -0.4083194 -1.0000570 -0.8309344  0.4367471 -0.08155524
+## 50%   0.0534040 -0.1313156 -0.1954375 -0.7297888  0.8995226  0.55843495
+## 75%   0.4044403  0.4155943  0.3169285  0.5083882  1.5546875  1.02058537
+## 100%  1.7940161  0.6737346  1.6593505  1.3796297  1.7855649  1.31297039
+##               V7
+## 0%   -2.22189373
+## 25%  -0.77017175
+## 50%  -0.07833045
+## 75%   0.33557232
+## 100%  1.42984069
 ```
 
 
@@ -1377,13 +1407,13 @@ y <- 1 + sqrt(x)/2
 plot(x,y)
 ```
 
-![](Intro2R_files/figure-html/unnamed-chunk-65-1.png)<!-- -->
+![](Intro2R_files/figure-html/unnamed-chunk-66-1.png)<!-- -->
 
 ```r
 plot(x,y, type="l")
 ```
 
-![](Intro2R_files/figure-html/unnamed-chunk-65-2.png)<!-- -->
+![](Intro2R_files/figure-html/unnamed-chunk-66-2.png)<!-- -->
 
 ```r
 # plot both the points and lines
@@ -1392,7 +1422,7 @@ plot(x,y)
 lines(x,y, type="l")
 ```
 
-![](Intro2R_files/figure-html/unnamed-chunk-65-3.png)<!-- -->
+![](Intro2R_files/figure-html/unnamed-chunk-66-3.png)<!-- -->
 
 ```r
 ## lines() can only be used to add information to a graph, while it cannot produce a graph on its own.
@@ -1406,7 +1436,7 @@ boxplot() can be used to summarize data.
 boxplot(data, xlab="Sample ID", ylab="Raw Counts")
 ```
 
-![](Intro2R_files/figure-html/unnamed-chunk-66-1.png)<!-- -->
+![](Intro2R_files/figure-html/unnamed-chunk-67-1.png)<!-- -->
 
 
 ```r
@@ -1414,7 +1444,7 @@ x <- rnorm(1000)
 boxplot(x)
 ```
 
-![](Intro2R_files/figure-html/unnamed-chunk-67-1.png)<!-- -->
+![](Intro2R_files/figure-html/unnamed-chunk-68-1.png)<!-- -->
 
 hist() can be used to create histograms of data.
 
@@ -1422,14 +1452,14 @@ hist() can be used to create histograms of data.
 hist(x)
 ```
 
-![](Intro2R_files/figure-html/unnamed-chunk-68-1.png)<!-- -->
+![](Intro2R_files/figure-html/unnamed-chunk-69-1.png)<!-- -->
 
 ```r
 # use user defined break points
 hist(x, breaks=seq(range(x)[1]-1, range(x)[2]+1, by=0.5))
 ```
 
-![](Intro2R_files/figure-html/unnamed-chunk-68-2.png)<!-- -->
+![](Intro2R_files/figure-html/unnamed-chunk-69-2.png)<!-- -->
 
 
 ```r
