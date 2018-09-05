@@ -179,11 +179,11 @@ Let's imagine we have three samples: control, strain A, and strain B, and each h
 
 Strain A will have mutated, due to selective pressure:
 
-    cat genome.fa | sed 's/ATGCC/ATACC/g' > strainA.fa  # G's to A's, in a particular motif
+    cat ../CLI/genome.fa | sed 's/ATGCC/ATACC/g' > strainA.fa  # G's to A's, in a particular motif
 
 And strain B will have different mutations:
 
-    cat genome.fa | sed 's/GCCTG/GCCCTG/g' > strainB.fa  # C insertions, in a particular motif
+    cat ../CLI/genome.fa | sed 's/GCCTG/GCCCTG/g' > strainB.fa  # C insertions, in a particular motif
 
 Now that we've got our genome sequences, let's create a script to align a genome sequence to the phiX reference genome. Do this using the nano text editor ... open nano to edit a file genome-align.sh like this:
 
@@ -205,7 +205,7 @@ Then save your file (\<control-o\>) and exit nano (\<control-x\>). In our script
     ls -l genome-align.sh  # what's changed?
     # here's the loop:
     for i in {"control.fa","strainA.fa","strainB.fa"}; do
-    ./genome-align.sh genome.fa $i 700
+    ./genome-align.sh ../CLI/genome.fa $i 700
     done
 
 What is the value '700' used for in our script? Do you see how the output files got the names they have? Finally, do the alignments in SAM format make sense?
