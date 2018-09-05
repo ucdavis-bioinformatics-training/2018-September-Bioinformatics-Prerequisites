@@ -172,17 +172,17 @@ Use a for loop with pipes to recreate the result from above where we wanted to f
 Bash Scripts
 ---------------
 
-Let's pretend we have three samples: control, strain A, and strain B. If we had a series of many steps to perform on each sample, we could put all the steps into a script, and run the script once for each sample (possible even in a for-loop, as above). So let's prepare a pretend-sequence for each sample. The control sample will have the same sequence as the reference (our phiX genome), so:
+Let's imagine we have three samples: control, strain A, and strain B, and each has a (potentially) different genome sequence. If we had a series of many steps to perform on each sample's genome, we could put all the steps into a script, and run the script once for each sample (possible even in a for-loop, as above). So let's prepare a "pretend" genome sequence for each sample. The control sample will have the same sequence as the reference (our phiX genome), so:
 
     cp genome.fa control.fa
 
 Strain A will have mutated, due to selective pressure:
 
-    cat genome.fa | sed 's/ATGCC/ATACC/g' > strainA.fa
+    cat genome.fa | sed 's/ATGCC/ATACC/g' > strainA.fa  # G's to A's, in a particular motif
 
 And strain B will have different mutations:
 
-    cat genome.fa | sed 's/GCCTG/GCCCTG/g' > strainB.fa
+    cat genome.fa | sed 's/GCCTG/GCCCTG/g' > strainB.fa  # C insertions, in a particular motif
 
 Now that we've got our genome sequences, let's create a script to align a genome sequence to the phiX reference genome. Do this using the nano text editor ... open nano to edit a file genome-align.sh like this:
 
