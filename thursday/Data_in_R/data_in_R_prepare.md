@@ -1,6 +1,7 @@
 ---
 title: "Prepare Data_in_R"
 author: "Bioinformatics Core"
+date: "2018-03-28"
 output:
     html_document:
       keep_md: TRUE
@@ -92,6 +93,8 @@ An R notebook is an R Markdown document with chunks that can be executed indepen
 * File -> New File -> R Notebook
 * Save the Notebook (Ex. test)
 
+you may need to install a few more packages.
+
 ### R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
@@ -103,6 +106,11 @@ print('hello world!')
 ```</code></pre>
 
 Review the R Markdown page and R Markdown cheat sheets.
+
+* [rmarkdown-reference.pdf](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+
+* [rmarkdown-2.0.pdf](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+
 
 Try 'knitting' to html, pdf, and doc as well as previewing the notebook. Open the resulting documents.
 

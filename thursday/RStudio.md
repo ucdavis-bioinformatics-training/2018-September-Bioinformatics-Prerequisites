@@ -99,6 +99,24 @@ Then on the line Control + Enter (Linux/Windows), Command + Enter (Mac) to execu
 
 **5\.** The assignment operator ( <- ) vs equals ( = )
 
+The assignment operator is used assign data to a variable
+
+    x <- 1:10
+    x
+    ## [1]  1  2  3  4  5  6  7  8  9 10
+
+In this case, the equal sign works as well
+
+    x = 1:10
+    x
+    ## [1]  1  2  3  4  5  6  7  8  9 10
+
+But you should **NEVER EVER DO THIS
+
+    1:10 -> x
+    x
+    ## [1]  1  2  3  4  5  6  7  8  9 10
+
 The two act the same in most cases. The difference in assignment operators is clearer when you use them to set an argument value in a function call. For example:
 
     median(x = 1:10)
@@ -108,10 +126,10 @@ The two act the same in most cases. The difference in assignment operators is cl
 In this case, x is declared within the scope of the function, so it does not exist in the user workspace.
 
     median(x <- 1:10)
-    x    
+    x
     ## [1]  1  2  3  4  5  6  7  8  9 10
 
-In this case, x is declared in the user workspace, so you can use it after the function call has been completed. There is a general preference among the R community for using <- for assignment (other than in function signatures) 
+In this case, x is declared in the user workspace, so you can use it after the function call has been completed. There is a general preference among the R community for using <- for assignment (other than in function signatures)
 
 **6\.** The RStudio Cheat Sheets
 
