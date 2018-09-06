@@ -34,13 +34,13 @@ Thursday
 
 * [Getting Started](thursday/RStudio)
 * [Introduction to R](thursday/Intro2R/Intro2R)
-* [Data in R - Prepare](thursday/data_in_R_prepare)
-* [Data in R](thursday/data_in_R)
+* [Data in R - Prepare](thursday/Data_in_R/data_in_R_prepare)
+* [Data in R](thursday/Data_in_R/data_in_R)
 
 
 Possible extra lectures
 ----------
-* [Introduction to Bioinformatics - TALK](talk/What_is_Bioinformatics.pdf)
+* [Introduction to Bioinformatics - TALK](lecture/What_is_Bioinformatics.pdf)
 
 
 [Evaluation for Command-Line](https://docs.google.com/forms/d/e/1FAIpQLSc2UlnKa7yFKeC4gh9oivQU6b-Ai51VezQGa0L78rZTaI4PSg/viewform?usp=sf_link)
