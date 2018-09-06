@@ -2,65 +2,6 @@
 
 Download [R Notebook](Intro2R.Rmd) (same content below, but .Rmd file can be used in R-Studio to produce mixed code and results).
 
-# R for Biologists - An Introduction to R (Beginner)
-
-## What is R?
-R is a language and environment for statistical computing and graphics. It provides a wide variety of statistical and graphical techniques (linear and nonlinear modelling, statistical tests, time series analysis, classification, clustering, ...)  and graphical techniques, and is highly extensible, meaning that the user community can write new R tools for any conceivable application. It is a GNU project (Free and Open Source) which is similar to the S language and environment which was developed at Bell Laboratories (formerly AT&T, now Lucent Technologies) by John Chambers and colleagues. R was created by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand, and now, R is developed by the R Development Core Team, of which Chambers is a member. R is named partly after the first names of the first two R authors (Robert Gentleman and Ross Ihaka), and partly as a play on the name of S. R can be considered as a different implementation of S. There are some important differences, but much code written for S runs unaltered under R. 
-
-Some of R's strengths:
-* The ease with which well-designed publication-quality plots can be produced, including mathematical symbols and formulae where needed. Great care has been taken over the defaults for the minor design choices in graphics, but the user retains full control.
-* It compiles and runs on a wide variety of UNIX platforms and similar systems (including FreeBSD and Linux), Windows and MacOS.
-* R can be extended (easily) via packages.
-* R has its own LaTeX-like documentation format, which is used to supply comprehensive documentation, both on-line in a number of formats and in hardcopy.
-* It's FREE!
-* It has a vast community both in academia and in business.
-
-### The R environment
-R is an integrated suite of software facilities for data manipulation, calculation and graphical display. It includes
-
-* an effective data handling and storage facility,
-* a suite of operators for calculations on arrays, in particular matrices,
-* a large, coherent, integrated collection of intermediate tools for data analysis,
-* graphical facilities for data analysis and display either on-screen or on hardcopy, and
-* a well-developed, simple and effective programming language which includes conditionals, loops, user-defined recursive functions and input and output facilities.
-
-The term "environment" is intended to characterize it as a fully planned and coherent system, rather than an incremental accretion of very specific and inflexible tools, as is frequently the case with other data analysis software.
-
-R, like S, is designed around a true computer language, and it allows users to add additional functionality by defining new functions. Much of the system is itself written in the R dialect of S, which makes it easy for users to follow the algorithmic choices made. For computationally-intensive tasks, C, C++ and Fortran code can be linked and called at run time. Advanced users can write C code to manipulate R objects directly.
-
-Many users think of R as a statistics system. The R group prefers to think of it of an environment within which statistical techniques are implemented.
-
-
-### The R Homepage
-The R homepage has a wealth of information on it,
-
-[R-project.org](http://r-project.org/)
-
-On the homepage you can:
-* Learn more about R
-* Download R
-* Get Documentation (official and user supplied)
-* Get access to CRAN 'Comprehensive R archival network'
-
-
-
-### RStudio
-
-Relatively new project that is the BEST integrated developement environment I have ever used.
-
-[RStudio](http://rstudio.org/)
-
-RStudio has many features:
-* syntax highlighting
-* code completion
-* smart indentation
-* "Projects"
-* workspace browser and data viewer
-* embedded plots
-* Sweave authoring and knitr with one click pdf or html
-* runs on all platforms and over the web
-
-
 ## Topics covered in this introduction to R
 1. Basic data types in R
 2. Importing and exporting data in R
@@ -601,17 +542,13 @@ library(devtools)
 install_github("stephenturner/qqman")
 ```
 
-*** biocLite() is the recommended way to install Bioconductor packages. 
+*** biocLite() is the recommended way to install Bioconductor packages.
 
-* Bioconductor has a repository and release schedule that differ from R (Bioconductor has a ‘devel’ branch to which new packages and updates are introduced, and a stable ‘release’ branch emitted once every 6 months to which bug fixes but no new features are introduced). This causes the version detected by install.packages() to sometimes not match the most recent 'release'. 
-* A consequence of the distince 'devel' branch is that install.packages() sometimes points only to the 'release' repository, while users might want to have access to the leading-edge features in the development version. 
+* Bioconductor has a repository and release schedule that differ from R (Bioconductor has a ‘devel’ branch to which new packages and updates are introduced, and a stable ‘release’ branch emitted once every 6 months to which bug fixes but no new features are introduced). This causes the version detected by install.packages() to sometimes not match the most recent 'release'.
+* A consequence of the distince 'devel' branch is that install.packages() sometimes points only to the 'release' repository, while users might want to have access to the leading-edge features in the development version.
 * An indirect consequence of Bioconductor's structured release is that packages generally have more extensive dependences with one another.
 
 To update the installed Bioconductor packages:
 ```{r}
 #biocLite("BiocUpgrade")
 ```
-
-
-
-
