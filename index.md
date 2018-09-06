@@ -32,7 +32,7 @@ Wednesday
 Thursday
 ----------
 
-* [Getting Started](thursday/RSudio.md)
+* [Getting Started](thursday/RStudio.md)
 * [Introduction to R](thursday/Intro2R/Intro2R)
 
 
