@@ -75,7 +75,7 @@ Let's start RStudio
 
 File -> New File -> R Script
 
-<img src="RStudio_figures/RStudio_newfile.png" alt="RStudio_newfile" width="500px"/>
+<img src="RStudio_figures/RStudio_newfile.png" alt="RStudio_newfile" width="800px"/>
 
 Then save the new empty file as Intro2R.R
 
@@ -85,7 +85,7 @@ File -> Save as -> Intro2R.R
 
 The R prompt is the '>' , when R is expecting more (command is not complete) you see a '+'
 
-<img src="RStudio_figures/Prompt.png" alt="Prompt" width="500px"/>
+<img src="RStudio_figures/Prompt.png" alt="Prompt" width="800px"/>
 
 **4\.** Writing and running R commands
 
