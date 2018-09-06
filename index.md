@@ -34,6 +34,8 @@ Thursday
 
 * [Getting Started](thursday/RStudio)
 * [Introduction to R](thursday/Intro2R/Intro2R)
+* [Data in R - Prepare](thursday/data_in_R_prepare)
+* [Data in R](thursday/data_in_R)
 
 
 Possible extra lectures
