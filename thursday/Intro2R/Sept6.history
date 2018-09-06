@@ -1,3 +1,28 @@
-library(rmarkdown)
-rmarkdown::render("Intro2R.Rmd")
-rmarkdown::render("Intro2R.Rmd")
+library(crayon)
+red("Hello World")
+x <- 1:25
+y <- "Hello World"
+"Hello World"
+"Hello World"
+y <- "Hello World"
+x <- 1:25
+y <- "Hello World"
+5*x
+x <- c(1,2,3,4)
+names(x) <- c("A","B","C","D")
+x
+ls(x)
+l(x)
+attributes(x)
+attr(x)
+structure(x)
+x <- rnorm(1000)
+x
+boxplot(x)
+hist(x)
+hist(x,breaks=100)
+ls()
+ls(
+)
+getwd()
+savehistory(file="Sept6.history")

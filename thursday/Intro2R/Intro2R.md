@@ -1,71 +1,14 @@
 ---
+title: "Introduction to R"
+author: "Bioinformatics Core"
+date: "2018-09-05"
 output:
-  html_document:
-    keep_md: true
-  word_document: default
+    html_document:
+      keep_md: TRUE
 ---
+
 R for Biologist - An Introduction to R (Beginner)
 ========================================================
-
-What is R
---------------------------------------------------------
-R is a language and environment for statistical computing and graphics. It provides a wide variety of statistical and graphical techniques (linear and nonlinear modelling, statistical tests, time series analysis, classification, clustering, ...)  and graphical techniques, and is highly extensible. It is a GNU project (Free and Open Source) which is similar to the S language and environment which was developed at Bell Laboratories (formerly AT&T, now Lucent Technologies) by John Chambers and colleagues. R was created by Ross Ihaka and Robert Gentleman[4] at the University of Auckland, New Zealand, and now, R is developed by the R Development Core Team, of which Chambers is a member. R is named partly after the first names of the first two R authors (Robert Gentleman and Ross Ihaka), and partly as a play on the name of S. R can be considered as a different implementation of S. There are some important differences, but much code written for S runs unaltered under R. 
-
-Some of R's strengths:
-* The ease with which well-designed publication-quality plots can be produced, including mathematical symbols and formulae where needed. Great care has been taken over the defaults for the minor design choices in graphics, but the user retains full control.
-* It compiles and runs on a wide variety of UNIX platforms and similar systems (including FreeBSD and Linux), Windows and MacOS.
-* R can be extended (easily) via packages.
-* R has its own LaTeX-like documentation format, which is used to supply comprehensive documentation, both on-line in a number of formats and in hardcopy.
-* Its FREE!
-* It has a vast community both in academia and in business.
-
-
-### The R environment
-R is an integrated suite of software facilities for data manipulation, calculation and graphical display. It includes
-
-* an effective data handling and storage facility,
-* a suite of operators for calculations on arrays, in particular matrices,
-* a large, coherent, integrated collection of intermediate tools for data analysis,
-* graphical facilities for data analysis and display either on-screen or on hardcopy, and
-* a well-developed, simple and effective programming language which includes conditionals, loops, user-defined recursive functions and input and output facilities.
-
-The term "environment" is intended to characterize it as a fully planned and coherent system, rather than an incremental accretion of very specific and inflexible tools, as is frequently the case with other data analysis software.
-
-R, like S, is designed around a true computer language, and it allows users to add additional functionality by defining new functions. Much of the system is itself written in the R dialect of S, which makes it easy for users to follow the algorithmic choices made. For computationally-intensive tasks, C, C++ and Fortran code can be linked and called at run time. Advanced users can write C code to manipulate R objects directly.
-
-Many users think of R as a statistics system. The R group, prefers to think of it of an environment within which statistical techniques are implemented.
-
-The R Homepage
---------------------------------------
-The R homepage has a wealth of information on it,
-
-[R-project.org](http://r-project.org/)
-
-On the homepage you can:
-* Learn more about R
-* Download R
-* Get Documentation (official and user supplied)
-* Get access to CRAN 'Comprehensive R archival network'
-
-
-
-RStudio
---------------------------------------
-
-Relatively new project that is the BEST integrated developement environment I have ever used.
-
-[RStudio](http://rstudio.org/)
-
-RStudio has many features:
-* syntax highlighting
-* code completion
-* smart indentation
-* "Projects"
-* workspace browser and data viewer
-* imbedded plots
-* Sweave authoring and knitr with one click pdf or html
-* runs on all platforms and over the web
-
 
 Topics covered in this introduction to R
 ====================================================
@@ -263,7 +206,7 @@ friend_ages
 ```
 
 ```
-##  Mina  Ella  Anna Carla 
+##  Mina  Ella  Anna Carla
 ##    21    27    26    32
 ```
 
@@ -274,7 +217,7 @@ friend_ages
 ```
 
 ```
-## Mina Ella Anna Cora 
+## Mina Ella Anna Cora
 ##   21   27   26   32
 ```
 
@@ -286,7 +229,7 @@ friend_ages
 ```
 
 ```
-## Mina Ella Anna Cora 
+## Mina Ella Anna Cora
 ##   21   27   26   32
 ```
 
@@ -307,7 +250,7 @@ friend_ages[2]
 ```
 
 ```
-## Ella 
+## Ella
 ##   27
 ```
 
@@ -316,7 +259,7 @@ friend_ages["Ella"]
 ```
 
 ```
-## Ella 
+## Ella
 ##   27
 ```
 
@@ -325,7 +268,7 @@ friend_ages[c(1,3)]
 ```
 
 ```
-## Mina Anna 
+## Mina Anna
 ##   21   26
 ```
 
@@ -334,7 +277,7 @@ friend_ages[c("Mina", "Anna")]
 ```
 
 ```
-## Mina Anna 
+## Mina Anna
 ##   21   26
 ```
 
@@ -344,7 +287,7 @@ friend_ages[-3]
 ```
 
 ```
-## Mina Ella Cora 
+## Mina Ella Cora
 ##   21   27   32
 ```
 
@@ -475,7 +418,7 @@ my_matrix[1,]
 ```
 
 ```
-## col1 col2 col3 
+## col1 col2 col3
 ##    1    2    8
 ```
 
@@ -484,7 +427,7 @@ my_matrix[,3]
 ```
 
 ```
-## row1 row2 row3 row4 
+## row1 row2 row3 row4
 ##    8   37  267   19
 ```
 
@@ -534,7 +477,7 @@ rowSums(my_matrix)
 ```
 
 ```
-## row1 row2 row3 row4 
+## row1 row2 row3 row4
 ##   11   58  302   38
 ```
 
@@ -545,7 +488,7 @@ colSums(my_matrix)
 ```
 
 ```
-## col1 col2 col3 
+## col1 col2 col3
 ##   21   57  331
 ```
 
@@ -567,7 +510,7 @@ apply(my_matrix, 1, mean)
 ```
 
 ```
-##       row1       row2       row3       row4 
+##       row1       row2       row3       row4
 ##   3.666667  19.333333 100.666667  12.666667
 ```
 
@@ -579,7 +522,7 @@ apply(my_matrix, 1, median)
 ```
 
 ```
-## row1 row2 row3 row4 
+## row1 row2 row3 row4
 ##    2   18   27   10
 ```
 
@@ -668,7 +611,7 @@ summary(friend_groups)
 ```
 
 ```
-## not_best_friend     best_friend 
+## not_best_friend     best_friend
 ##               2               2
 ```
 
@@ -679,7 +622,7 @@ table(friend_groups)
 
 ```
 ## friend_groups
-## not_best_friend     best_friend 
+## not_best_friend     best_friend
 ##               2               2
 ```
 
@@ -901,13 +844,13 @@ my_list
 ```
 ## $mother
 ## [1] "Sophia"
-## 
+##
 ## $father
 ## [1] "John"
-## 
+##
 ## $sisters
 ## [1] "Anna" "Emma"
-## 
+##
 ## $sister_age
 ## [1]  5 10
 ```
@@ -1088,11 +1031,11 @@ getwd()
 ```
 
 ```
-## [1] "/Users/jli/Jessie/Research/BioInfo/Courses/2018-September-Bioinformatics-Prerequisites/thursday/Intro2R"
+## [1] "/Users/mattsettles/projects/src/github.com-ucdavis-bioinformatics-training/2018-September-Bioinformatics-Prerequisites/thursday/Intro2R"
 ```
 
 ```r
-# to set a different working directory
+# to set a different working directory, use setwd
 setwd("/Users/jli/Desktop")
 
 # to list all variables in the environment
@@ -1200,25 +1143,25 @@ lapply(1:dim(data)[1], function(x){sum(data[x,])})
 
 ```
 ## [[1]]
-## [1] -1.401704
-## 
+## [1] -3.196251
+##
 ## [[2]]
-## [1] 1.344334
-## 
+## [1] 4.629736
+##
 ## [[3]]
-## [1] -4.068717
-## 
+## [1] -2.386937
+##
 ## [[4]]
-## [1] 4.531183
-## 
+## [1] -4.244555
+##
 ## [[5]]
-## [1] 2.412818
-## 
+## [1] -4.26624
+##
 ## [[6]]
-## [1] 2.692288
-## 
+## [1] -1.920159
+##
 ## [[7]]
-## [1] -0.5391086
+## [1] 0.4293733
 ```
 
 ```r
@@ -1226,8 +1169,8 @@ apply(data, MARGIN=1, sum)
 ```
 
 ```
-## [1] -1.4017037  1.3443342 -4.0687167  4.5311834  2.4128181  2.6922877
-## [7] -0.5391086
+## [1] -3.1962511  4.6297360 -2.3869367 -4.2445553 -4.2662399 -1.9201587
+## [7]  0.4293733
 ```
 
 ```r
@@ -1240,29 +1183,33 @@ lapply(1:dim(data)[1], function(x){log10(sum(data[x,]))})
 ## Warning in FUN(X[[i]], ...): NaNs produced
 
 ## Warning in FUN(X[[i]], ...): NaNs produced
+
+## Warning in FUN(X[[i]], ...): NaNs produced
+
+## Warning in FUN(X[[i]], ...): NaNs produced
 ```
 
 ```
 ## [[1]]
 ## [1] NaN
-## 
+##
 ## [[2]]
-## [1] 0.1285072
-## 
+## [1] 0.6655562
+##
 ## [[3]]
 ## [1] NaN
-## 
+##
 ## [[4]]
-## [1] 0.6562116
-## 
-## [[5]]
-## [1] 0.3825246
-## 
-## [[6]]
-## [1] 0.4301215
-## 
-## [[7]]
 ## [1] NaN
+##
+## [[5]]
+## [1] NaN
+##
+## [[6]]
+## [1] NaN
+##
+## [[7]]
+## [1] -0.367165
 ```
 
 ### The function sapply() works like function lapply(), but tries to simplify the output to the most elementary data structure that is possible. As a matter of fact, sapply() is a "wrapper" function for lapply(). By default, it returns a vector.
@@ -1281,10 +1228,15 @@ sapply(1:dim(data)[1], function(x){log10(sum(data[x,]))})
 ## Warning in FUN(X[[i]], ...): NaNs produced
 
 ## Warning in FUN(X[[i]], ...): NaNs produced
+
+## Warning in FUN(X[[i]], ...): NaNs produced
+
+## Warning in FUN(X[[i]], ...): NaNs produced
 ```
 
 ```
-## [1]       NaN 0.1285072       NaN 0.6562116 0.3825246 0.4301215       NaN
+## [1]        NaN  0.6655562        NaN        NaN        NaN        NaN
+## [7] -0.3671650
 ```
 
 ### If the "simplify" parameter is turned off, sapply() will produced exactly the same results as lapply(), in the form of a list. By default, "simplify" is turned on.
@@ -1299,29 +1251,33 @@ sapply(1:dim(data)[1], function(x){log10(sum(data[x,]))}, simplify=FALSE)
 ## Warning in FUN(X[[i]], ...): NaNs produced
 
 ## Warning in FUN(X[[i]], ...): NaNs produced
+
+## Warning in FUN(X[[i]], ...): NaNs produced
+
+## Warning in FUN(X[[i]], ...): NaNs produced
 ```
 
 ```
 ## [[1]]
 ## [1] NaN
-## 
+##
 ## [[2]]
-## [1] 0.1285072
-## 
+## [1] 0.6655562
+##
 ## [[3]]
 ## [1] NaN
-## 
+##
 ## [[4]]
-## [1] 0.6562116
-## 
-## [[5]]
-## [1] 0.3825246
-## 
-## [[6]]
-## [1] 0.4301215
-## 
-## [[7]]
 ## [1] NaN
+##
+## [[5]]
+## [1] NaN
+##
+## [[6]]
+## [1] NaN
+##
+## [[7]]
+## [1] -0.367165
 ```
 
 
@@ -1329,7 +1285,7 @@ Topic 4. Basic statistics in R
 ====================================================
 
 
-             Description                 R_function 
+             Description                 R_function
 --------------------------------------  ------------
                  Mean                      mean()   
           Standard deviation                sd()    
@@ -1338,7 +1294,7 @@ Topic 4. Basic statistics in R
                Maximum                     max()    
                 Median                    median()  
  Range of values: minimum and maximum     range()   
-           Sample quantiles              quantile() 
+           Sample quantiles              quantile()
            Generic function              summary()  
          Interquartile range               IQR()    
 
@@ -1350,10 +1306,10 @@ apply(data, 2, mean)
 ```
 
 ```
-##           V1           V2           V3           V4           V5 
-## -0.002683872 -0.077189705 -0.146410848 -0.148431565  0.905906853 
-##           V6           V7 
-##  0.427477253 -0.248511762
+##          V1          V2          V3          V4          V5          V6
+## -0.07493860  0.09016817 -0.07351656 -0.41336725 -0.35316022 -0.46762713
+##          V7
+## -0.27256304
 ```
 
 Calculate the range of expression for each sample.
@@ -1364,12 +1320,12 @@ apply(data, 2, range)
 ```
 
 ```
-##             V1         V2        V3        V4         V5         V6
-## [1,] -1.663860 -1.0972968 -1.122532 -1.043769 -0.3266086 -0.7571248
-## [2,]  1.794016  0.6737346  1.659351  1.379630  1.7855649  1.3129704
+##             V1        V2        V3        V4        V5         V6
+## [1,] -1.660427 -1.191180 -1.536469 -2.256240 -1.496846 -1.6728333
+## [2,]  1.391026  0.980829  1.177698  1.078647  2.134961  0.7939947
 ##             V7
-## [1,] -2.221894
-## [2,]  1.429841
+## [1,] -1.298585
+## [2,]  0.716350
 ```
 
 Calculate the quantiles of each samples.
@@ -1380,18 +1336,18 @@ apply(data, 2, quantile)
 ```
 
 ```
-##              V1         V2         V3         V4         V5          V6
-## 0%   -1.6638596 -1.0972968 -1.1225319 -1.0437695 -0.3266086 -0.75712485
-## 25%  -0.5056140 -0.4083194 -1.0000570 -0.8309344  0.4367471 -0.08155524
-## 50%   0.0534040 -0.1313156 -0.1954375 -0.7297888  0.8995226  0.55843495
-## 75%   0.4044403  0.4155943  0.3169285  0.5083882  1.5546875  1.02058537
-## 100%  1.7940161  0.6737346  1.6593505  1.3796297  1.7855649  1.31297039
-##               V7
-## 0%   -2.22189373
-## 25%  -0.77017175
-## 50%  -0.07833045
-## 75%   0.33557232
-## 100%  1.42984069
+##              V1         V2         V3         V4         V5         V6
+## 0%   -1.6604271 -1.1911804 -1.5364690 -2.2562401 -1.4968461 -1.6728333
+## 25%  -0.8622092 -0.3864804 -0.8237535 -1.4613897 -1.1177519 -1.2923110
+## 50%  -0.2017710  0.0567153 -0.2640791  0.1169598 -0.4286974 -0.4084193
+## 75%   0.8355103  0.7788870  0.8778705  0.5449211 -0.2230176  0.2992450
+## 100%  1.3910257  0.9808290  1.1776980  1.0786468  2.1349609  0.7939947
+##              V7
+## 0%   -1.2985853
+## 25%  -0.5358018
+## 50%  -0.3978581
+## 75%   0.0718778
+## 100%  0.7163500
 ```
 
 
@@ -1468,7 +1424,7 @@ dev.off()
 ```
 
 ```
-## null device 
+## null device
 ##           1
 ```
 
@@ -1516,11 +1472,11 @@ install_github("stephenturner/qqman")
 ##   Use `force = TRUE` to force installation
 ```
 
-# biocLite() is the recommended way to install Bioconductor packages. 
+# biocLite() is the recommended way to install Bioconductor packages.
 
-* Bioconductor has a repository and release schedule that differ from R (Bioconductor has a ‘devel’ branch to which new packages and updates are introduced, and a stable ‘release’ branch emitted once every 6 months to which bug fixes but not new features are introduced). This mismatch causes that the version detected by install.packages() is sometimes not the most recent 'release'. 
+* Bioconductor has a repository and release schedule that differ from R (Bioconductor has a ‘devel’ branch to which new packages and updates are introduced, and a stable ‘release’ branch emitted once every 6 months to which bug fixes but not new features are introduced). This mismatch causes that the version detected by install.packages() is sometimes not the most recent 'release'.
 
-* A consequence of the distince 'devel' branch is that install.packages() sometimes points only to the 'release' repository, while users might want to have access to the leading-edge features in the develop version. 
+* A consequence of the distince 'devel' branch is that install.packages() sometimes points only to the 'release' repository, while users might want to have access to the leading-edge features in the develop version.
 
 * An indirect consequence of Bioconductor's structured release is that packages generally have more extensive dependences with one another.
 
@@ -1551,4 +1507,3 @@ save(list=c("x", "data"), file="Sept6.RData")
 
 #load("Sept6.RData")
 ```
-
