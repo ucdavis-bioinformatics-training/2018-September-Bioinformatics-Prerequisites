@@ -3,14 +3,16 @@ title: "Data_in_R"
 author: Matt Settles
 date: "2018-03-28"
 output:
+    html_notebook: default
     html_document:
         keep_md: TRUE
-    html_notebook: default
 ---
+
+Recreating (and maybe improving on) some of the figures generated with plot-bamstats application in R.
 
 ## Lets start by making sure packages and data can be loaded and read in.
 
-First lets load knitr and the tidyverse set of packages.
+First lets load knitr, tidyverse, reshape2 and gridExtra packages.
 
 ```{r load_packages}
 library(knitr)
@@ -21,6 +23,8 @@ library(gridExtra)
 
 This document assumes you have the file 'bwa.samtools.stats' in your current working directory, lets test to make sure it is.
 ```{r check_data}
+getwd()
+dir()
 file.exists("bwa.samtools.stats")
 ```
 
@@ -30,6 +34,7 @@ So lets read in the file and view the first few lines and get the length
 ```{r load_data}
 data <- readLines("bwa.samtools.stats")
 head(data)
+tail(data)
 length(data)
 ```
 
@@ -48,14 +53,20 @@ There are many sections to the samtools stats output, each section begins with a
 * Coverage distribution -> COV
 * Coverage distribution -> GCD
 
-With the exception of Summary Numbers, most sections are tables of data, the file explains the format of the data tables, open the log file (in Rstudio is fine) and search for the term 'grep'.
+With the exception of Summary Numbers, most sections are tables of data, the file explains the format of the 
+data tables, open the log file (in Rstudio is fine) and search for the term 'grep'.
 
-## Lets first parse out the different sections and save them into different tables
+Lets take a quick look at the comments in the file
+```{r file_commenys, eval=FALSE}
+grep("^# ",data, value=TRUE)
+```
+
+## Lets first parse out the different sections and save them into different variable (tables).
 
 ### Summary table
 First lets extract the Summary numbers and create a summary table
 
-* First extract the right rows, these begin (^) with SN.
+* First extract the right rows, these begin with (^) SN.
 * Then turn it into a table using the function separate (View the help of separate)
   * with 3 columns (ID, Name, and Value)
   * separate by the tab character "\t"
@@ -76,7 +87,9 @@ kable(sn, caption="Summary numbers")
 ?kable
 ```
 
-### Lets get the read lengths
+**On your own**: While the Value column is numeric, by default it is being read in as characters. Lets use kable align parameter to left justify name and right justify value.
+
+### Lets get the next section, read lengths
 
 First lets extract the read length data and create a table
 
@@ -105,8 +118,6 @@ First lets extract the insert sizes data and create a table
 is <- grep("^IS",data, value=TRUE)
 is <- separate(data.frame(is),col=1, into=c("ID", "insert size","all pairs", "inward", "outward", "other"), sep="\t", convert=TRUE)[,-1]
 ```
-
-summarize(is,avg=mean(`all pairs`), noutward=sum(outward), ninward=sum(inward))
 
 ### Lets get the ACGT content per cycle
 
@@ -199,12 +210,24 @@ GC Coverage data
   * separate by the tab character "\t"
   * and remove the first column '[,-1]', the GCD
 
+### Some Summary stats with 
+
+```{r dplyr_stats}
+summarize(is,low=min(`insert size`), max=max(`insert size`), average=mean(`all pairs`), noutward=sum(outward), ninward=sum(inward))
+
+new_is <- mutate(is,poutward=outward/`all pairs`, pinward=inward/`all pairs`)
+```
+
+**On your own** Tasks
+
+Try using "distinct", on is (or new_is) on the outward and inward columns
 
 ## **On your own** Tasks
 
 1. View the head/tail of some (or even all) of the objects.
 2. Use dim to get an idea of the table dimentions.
 3. Use summary to summarize to produce summary statistics (min, max, means, 1st and 3rd quartile boundaries) the columns.
+4. Any other summaries?
 
 So now we have new objects (data.frames) that hold the data we are interested in plotting
 
@@ -242,36 +265,45 @@ A basic ggplot2 plot consists of the following components:
 
 The basic idea: independently specify plot building blocks and combine them (using '+') to create just about any kind of graphical display you want.
 
+ggplot (data = <DATA> ) +
+  <GEOM_FUNCTION> (mapping = aes( <MAPPINGS> ), stat = <STAT> , position = <POSITION> ) + 
+  <COORDINATE_FUNCTION> + 
+  <FACET_FUNCTION> + 
+  <SCALE_FUNCTION> + 
+  <THEME_FUNCTION>
+
 ### Our first plot, plotting the insert size of mapped fragments
 
 We use the ggplot function and define the data as 'is' and x, y as as.numeric(get("insert size")), as.numeric(get("all pairs")), respectively. We use "get" because they have spaces in the names, and as.numeric because the data are characters (due to the manner in which we readin the data.
 
 ```{r plot_is}
-g <- ggplot(data = is, aes(as.numeric(get("insert size")), as.numeric(get("all pairs"))))
-g + geom_line()
+g <- ggplot(data = is)
+g + geom_line( aes(x=get("insert size"), y=get("all pairs")))
 ```
 
-**On your own**: See what the plot would look like had we not converted x or y to numeric values.
 
 Ok, now lets add some labels to the plot
 
 ```{r plot_is_labels}
-g + geom_line() + labs( x = "insert size", y = "all pairs", title ="Mapped insert sizes", subtitle = "All Pairs", caption = "all pairs insert size")
+g + geom_line( aes(x=get("insert size"), y=get("all pairs"))) + 
+  labs( x = "insert size", y = "all pairs", title ="Mapped insert sizes", subtitle = "All Pairs", caption = "all pairs insert size")
 ```
 
 Ok, what about plotting multiple data objects on the same plot (multiple lines), in that case we can specifically set the y axis in geom_line and color, then call geom_lines twice (or more times).
 
 ```{r plot_is_mlines}
-g <- ggplot(data = is, aes(as.numeric(get("insert size"))))
-g + geom_line(aes(y=as.numeric(get("inward"))),color="blue") +  
-    geom_line(aes(y=as.numeric(get("outward"))),color="orange") + 
+g <- ggplot(data = is, aes(x=get("insert size")))
+g + geom_line(aes(y=get("inward")),color="blue") +  
+    geom_line(aes(y=get("outward")),color="orange") + 
     labs( x = "insert size", y = "all pairs", title ="Mapped insert sizes", subtitle = "All Pairs", caption = "all pairs insert size")
 ```
 
-Hard to see the bulk of the data, lets reset the x/y limits to 0,600 and 0,20000 respectively.
+lets try adjusting the x/y limits to 0,600 and 0,20000 respectively.
 
 ```{r plot_is_limits}
-g + geom_line(aes(y=as.numeric(get("inward"))),color="blue") + geom_line(aes(y=as.numeric(get("outward"))),color="orange") + coord_cartesian(xlim=c(0,600), ylim=c(0,150000))
+g + geom_line(aes(y=get("inward")),color="blue") +
+  geom_line(aes(y=get("outward")),color="orange") + 
+  coord_cartesian(xlim=c(0,500), ylim=c(0,600000))
 ```
 
 Ok so now put all these elements together into a single plot, save final plot as 'g'
@@ -281,15 +313,17 @@ Ok so now put all these elements together into a single plot, save final plot as
 ** On your own**: Play with ggplot2 themes (ex. theme_classic() )
 
 ```{r insert_length}
-g <- ggplot(data = is, aes(as.numeric(get("insert size"))))
-g <- g + geom_line(aes(y=as.numeric(get("all pairs"))), color="black") +  
-    geom_line(aes(y=as.numeric(get("inward"))), color="green") +
-    geom_line(aes(y=as.numeric(get("outward"))), color="blue") +
-    geom_line(aes(y=as.numeric(get("other"))), color="orange") 
+g <- ggplot(data = is, aes(x=get("insert size")))
+g <- g + geom_line(aes(y=get("all pairs")), color="black") +  
+    geom_line(aes(y=get("inward")),color="blue") +  
+    geom_line(aes(y=get("outward")),color="orange") +
+    geom_line(aes(y=get("other")), color="green")
 g <- g + 
     labs( x = "insert size", y = "all pairs", title ="Mapped insert sizes", subtitle = "All Pairs", caption = "all pairs insert size")
-g <- g + coord_cartesian(xlim=c(0,600), ylim=c(0,3500000))
+g <- g + coord_cartesian(xlim=c(0,500), ylim=c(0,600000))
+g <- g + theme_light()
 plot(g)
+ggsave("insert_size.png",width=10,height=8)
 ```
 
 ### Plotting GC content
@@ -298,12 +332,10 @@ In order to plot GC percentage we first need to convert the counts to proportion
 
 ```{r plot_gc}
 head(gc)
-h <- ggplot(gc, aes(as.numeric(GC), as.numeric(Count)/sum(as.numeric(Count)),color=Pair))
+h <- ggplot(gc, aes(as.numeric(GC), Count/sum(Count),color=Pair))
 h <- h + geom_line()
 h
 ```
-
-** On your own**: The other plot uses "normalized frequency", how might we update the code above to produce the same normalized frequency?
 
 ** On your own**: Finish the plot (add labels, etc.). Save the final graph object in h
 
@@ -332,7 +364,7 @@ i2 <- ic + geom_boxplot()
 i2
 ```
 
-** On your own**: Try some other geometries (Ex. bin2d, col, count, which others generate an 'interpretable' plot)
+** On your own**: Try some other geometries (Ex. bin2d, col, count, which generate an 'interpretable' plot)
 
 ### Plotting a heatmap of qualities
 

@@ -8,9 +8,11 @@ output:
     html_notebook: default
 ---
 
+Recreating (and maybe improving on) some of the figures generated with plot-bamstats application in R.
+
 ## Lets start by making sure packages and data can be loaded and read in.
 
-First lets load knitr and the tidyverse set of packages.
+First lets load knitr, tidyverse, reshape2 and gridExtra packages.
 
 
 ```r
@@ -19,7 +21,7 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ──────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+## ── Attaching packages ──────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 ```
 
 ```
@@ -30,7 +32,7 @@ library(tidyverse)
 ```
 
 ```
-## ── Conflicts ─────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ─────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ```
@@ -68,6 +70,25 @@ library(gridExtra)
 This document assumes you have the file 'bwa.samtools.stats' in your current working directory, lets test to make sure it is.
 
 ```r
+getwd()
+```
+
+```
+## [1] "/Users/mattsettles/Data_in_R"
+```
+
+```r
+dir()
+```
+
+```
+##  [1] "bwa_mem_Stats.log"  "bwa.samtools.stats" "data_in_R_files"   
+##  [4] "data_in_R.html"     "data_in_R.md"       "data_in_R.nb.html" 
+##  [7] "data_in_R.Rmd"      "Data_in_R.Rproj"    "indel_ratio.pdf"   
+## [10] "indel_ratio.png"    "insert_size.png"    "packrat"
+```
+
+```r
 file.exists("bwa.samtools.stats")
 ```
 
@@ -94,6 +115,19 @@ head(data)
 ```
 
 ```r
+tail(data)
+```
+
+```
+## [1] "GCD\t19.0\t58.824\t0.007\t0.007\t0.007\t0.007\t0.007" 
+## [2] "GCD\t36.0\t70.588\t0.007\t0.007\t0.007\t0.007\t0.007" 
+## [3] "GCD\t38.0\t76.471\t0.007\t0.007\t0.007\t0.007\t0.007" 
+## [4] "GCD\t41.0\t82.353\t0.007\t0.007\t0.007\t0.007\t0.007" 
+## [5] "GCD\t42.0\t88.235\t0.007\t0.007\t0.007\t0.007\t0.007" 
+## [6] "GCD\t48.0\t100.000\t0.007\t0.007\t0.007\t0.007\t0.007"
+```
+
+```r
 length(data)
 ```
 
@@ -116,14 +150,21 @@ There are many sections to the samtools stats output, each section begins with a
 * Coverage distribution -> COV
 * Coverage distribution -> GCD
 
-With the exception of Summary Numbers, most sections are tables of data, the file explains the format of the data tables, open the log file (in Rstudio is fine) and search for the term 'grep'.
+With the exception of Summary Numbers, most sections are tables of data, the file explains the format of the 
+data tables, open the log file (in Rstudio is fine) and search for the term 'grep'.
 
-## Lets first parse out the different sections and save them into different tables
+Lets take a quick look at the comments in the file
+
+```r
+grep("^# ",data, value=TRUE)
+```
+
+## Lets first parse out the different sections and save them into different variable (tables).
 
 ### Summary table
 First lets extract the Summary numbers and create a summary table
 
-* First extract the right rows, these begin (^) with SN.
+* First extract the right rows, these begin with (^) SN.
 * Then turn it into a table using the function separate (View the help of separate)
   * with 3 columns (ID, Name, and Value)
   * separate by the tab character "\t"
@@ -192,7 +233,9 @@ percentage of properly paired reads (%):   33.6
 ?kable
 ```
 
-### Lets get the read lengths
+**On your own**: While the Value column is numeric, by default it is being read in as characters. Lets use kable align parameter to left justify name and right justify value.
+
+### Lets get the next section, read lengths
 
 First lets extract the read length data and create a table
 
@@ -223,8 +266,6 @@ First lets extract the insert sizes data and create a table
 is <- grep("^IS",data, value=TRUE)
 is <- separate(data.frame(is),col=1, into=c("ID", "insert size","all pairs", "inward", "outward", "other"), sep="\t", convert=TRUE)[,-1]
 ```
-
-summarize(is,avg=mean(`all pairs`), noutward=sum(outward), ninward=sum(inward))
 
 ### Lets get the ACGT content per cycle
 
@@ -328,12 +369,32 @@ GC Coverage data
   * separate by the tab character "\t"
   * and remove the first column '[,-1]', the GCD
 
+### Some Summary stats with 
+
+
+```r
+summarize(is,low=min(`insert size`), max=max(`insert size`), average=mean(`all pairs`), noutward=sum(outward), ninward=sum(inward))
+```
+
+```
+##   low max average noutward   ninward
+## 1   0 576  272522 32273430 120770240
+```
+
+```r
+new_is <- mutate(is,poutward=outward/`all pairs`, pinward=inward/`all pairs`)
+```
+
+**On your own** Tasks
+
+Try using "distinct", on is (or new_is) on the outward and inward columns
 
 ## **On your own** Tasks
 
 1. View the head/tail of some (or even all) of the objects.
 2. Use dim to get an idea of the table dimentions.
 3. Use summary to summarize to produce summary statistics (min, max, means, 1st and 3rd quartile boundaries) the columns.
+4. Any other summaries?
 
 So now we have new objects (data.frames) that hold the data we are interested in plotting
 
@@ -371,25 +432,32 @@ A basic ggplot2 plot consists of the following components:
 
 The basic idea: independently specify plot building blocks and combine them (using '+') to create just about any kind of graphical display you want.
 
+ggplot (data = <DATA> ) +
+  <GEOM_FUNCTION> (mapping = aes( <MAPPINGS> ), stat = <STAT> , position = <POSITION> ) + 
+  <COORDINATE_FUNCTION> + 
+  <FACET_FUNCTION> + 
+  <SCALE_FUNCTION> + 
+  <THEME_FUNCTION>
+
 ### Our first plot, plotting the insert size of mapped fragments
 
 We use the ggplot function and define the data as 'is' and x, y as as.numeric(get("insert size")), as.numeric(get("all pairs")), respectively. We use "get" because they have spaces in the names, and as.numeric because the data are characters (due to the manner in which we readin the data.
 
 
 ```r
-g <- ggplot(data = is, aes(as.numeric(get("insert size")), as.numeric(get("all pairs"))))
-g + geom_line()
+g <- ggplot(data = is)
+g + geom_line( aes(x=get("insert size"), y=get("all pairs")))
 ```
 
 ![](data_in_R_files/figure-html/plot_is-1.png)<!-- -->
 
-**On your own**: See what the plot would look like had we not converted x or y to numeric values.
 
 Ok, now lets add some labels to the plot
 
 
 ```r
-g + geom_line() + labs( x = "insert size", y = "all pairs", title ="Mapped insert sizes", subtitle = "All Pairs", caption = "all pairs insert size")
+g + geom_line( aes(x=get("insert size"), y=get("all pairs"))) + 
+  labs( x = "insert size", y = "all pairs", title ="Mapped insert sizes", subtitle = "All Pairs", caption = "all pairs insert size")
 ```
 
 ![](data_in_R_files/figure-html/plot_is_labels-1.png)<!-- -->
@@ -398,19 +466,21 @@ Ok, what about plotting multiple data objects on the same plot (multiple lines),
 
 
 ```r
-g <- ggplot(data = is, aes(as.numeric(get("insert size"))))
-g + geom_line(aes(y=as.numeric(get("inward"))),color="blue") +  
-    geom_line(aes(y=as.numeric(get("outward"))),color="orange") + 
+g <- ggplot(data = is, aes(x=get("insert size")))
+g + geom_line(aes(y=get("inward")),color="blue") +  
+    geom_line(aes(y=get("outward")),color="orange") + 
     labs( x = "insert size", y = "all pairs", title ="Mapped insert sizes", subtitle = "All Pairs", caption = "all pairs insert size")
 ```
 
 ![](data_in_R_files/figure-html/plot_is_mlines-1.png)<!-- -->
 
-Hard to see the bulk of the data, lets reset the x/y limits to 0,600 and 0,20000 respectively.
+lets try adjusting the x/y limits to 0,600 and 0,20000 respectively.
 
 
 ```r
-g + geom_line(aes(y=as.numeric(get("inward"))),color="blue") + geom_line(aes(y=as.numeric(get("outward"))),color="orange") + coord_cartesian(xlim=c(0,600), ylim=c(0,150000))
+g + geom_line(aes(y=get("inward")),color="blue") +
+  geom_line(aes(y=get("outward")),color="orange") + 
+  coord_cartesian(xlim=c(0,500), ylim=c(0,600000))
 ```
 
 ![](data_in_R_files/figure-html/plot_is_limits-1.png)<!-- -->
@@ -423,18 +493,23 @@ Ok so now put all these elements together into a single plot, save final plot as
 
 
 ```r
-g <- ggplot(data = is, aes(as.numeric(get("insert size"))))
-g <- g + geom_line(aes(y=as.numeric(get("all pairs"))), color="black") +  
-    geom_line(aes(y=as.numeric(get("inward"))), color="green") +
-    geom_line(aes(y=as.numeric(get("outward"))), color="blue") +
-    geom_line(aes(y=as.numeric(get("other"))), color="orange") 
+g <- ggplot(data = is, aes(x=get("insert size")))
+g <- g + geom_line(aes(y=get("all pairs")), color="black") +  
+    geom_line(aes(y=get("inward")),color="blue") +  
+    geom_line(aes(y=get("outward")),color="orange") +
+    geom_line(aes(y=get("other")), color="green")
 g <- g + 
     labs( x = "insert size", y = "all pairs", title ="Mapped insert sizes", subtitle = "All Pairs", caption = "all pairs insert size")
-g <- g + coord_cartesian(xlim=c(0,600), ylim=c(0,3500000))
+g <- g + coord_cartesian(xlim=c(0,500), ylim=c(0,600000))
+g <- g + theme_light()
 plot(g)
 ```
 
 ![](data_in_R_files/figure-html/insert_length-1.png)<!-- -->
+
+```r
+ggsave("insert_size.png",width=10,height=8)
+```
 
 ### Plotting GC content
 
@@ -456,14 +531,12 @@ head(gc)
 ```
 
 ```r
-h <- ggplot(gc, aes(as.numeric(GC), as.numeric(Count)/sum(as.numeric(Count)),color=Pair))
+h <- ggplot(gc, aes(as.numeric(GC), Count/sum(Count),color=Pair))
 h <- h + geom_line()
 h
 ```
 
 ![](data_in_R_files/figure-html/plot_gc-1.png)<!-- -->
-
-** On your own**: The other plot uses "normalized frequency", how might we update the code above to produce the same normalized frequency?
 
 ** On your own**: Finish the plot (add labels, etc.). Save the final graph object in h
 
@@ -499,7 +572,7 @@ i2
 
 ![](data_in_R_files/figure-html/actg_boxplot-1.png)<!-- -->
 
-** On your own**: Try some other geometries (Ex. bin2d, col, count, which others generate an 'interpretable' plot)
+** On your own**: Try some other geometries (Ex. bin2d, col, count, which generate an 'interpretable' plot)
 
 ### Plotting a heatmap of qualities
 
@@ -711,9 +784,10 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] gridExtra_2.3   reshape2_1.4.3  forcats_0.3.0   stringr_1.3.1  
-##  [5] dplyr_0.7.6     purrr_0.2.5     readr_1.1.1     tidyr_0.8.1    
-##  [9] tibble_1.4.2    ggplot2_3.0.0   tidyverse_1.2.1 knitr_1.20     
+##  [1] bindrcpp_0.2.2  gridExtra_2.3   reshape2_1.4.3  forcats_0.3.0  
+##  [5] stringr_1.3.1   dplyr_0.7.6     purrr_0.2.5     readr_1.1.1    
+##  [9] tidyr_0.8.1     tibble_1.4.2    ggplot2_3.0.0   tidyverse_1.2.1
+## [13] knitr_1.20     
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_0.12.18     highr_0.7        cellranger_1.1.0 pillar_1.3.0    
@@ -721,11 +795,11 @@ sessionInfo()
 ##  [9] digest_0.6.16    packrat_0.4.9-3  lubridate_1.7.4  jsonlite_1.5    
 ## [13] evaluate_0.11    nlme_3.1-137     gtable_0.2.0     lattice_0.20-35 
 ## [17] pkgconfig_2.0.2  rlang_0.2.2      cli_1.0.0        rstudioapi_0.7  
-## [21] yaml_2.2.0       haven_1.1.2      bindrcpp_0.2.2   withr_2.1.2     
-## [25] xml2_1.2.0       httr_1.3.1       hms_0.4.2        rprojroot_1.3-2 
-## [29] grid_3.5.1       tidyselect_0.2.4 glue_1.3.0       R6_2.2.2        
-## [33] readxl_1.1.0     rmarkdown_1.10   modelr_0.1.2     magrittr_1.5    
-## [37] backports_1.1.2  scales_1.0.0     htmltools_0.3.6  rvest_0.3.2     
-## [41] assertthat_0.2.0 colorspace_1.3-2 labeling_0.3     stringi_1.2.4   
-## [45] lazyeval_0.2.1   munsell_0.5.0    broom_0.5.0      crayon_1.3.4
+## [21] yaml_2.2.0       haven_1.1.2      withr_2.1.2      xml2_1.2.0      
+## [25] httr_1.3.1       hms_0.4.2        rprojroot_1.3-2  grid_3.5.1      
+## [29] tidyselect_0.2.4 glue_1.3.0       R6_2.2.2         readxl_1.1.0    
+## [33] rmarkdown_1.10   modelr_0.1.2     magrittr_1.5     backports_1.1.2 
+## [37] scales_1.0.0     htmltools_0.3.6  rvest_0.3.2      assertthat_0.2.0
+## [41] colorspace_1.3-2 labeling_0.3     stringi_1.2.4    lazyeval_0.2.1  
+## [45] munsell_0.5.0    broom_0.5.0      crayon_1.3.4
 ```
