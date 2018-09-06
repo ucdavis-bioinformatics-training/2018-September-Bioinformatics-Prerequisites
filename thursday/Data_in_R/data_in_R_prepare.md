@@ -1,7 +1,6 @@
 ---
 title: "Prepare Data_in_R"
 author: "Bioinformatics Core"
-date: "`r format(Sys.Date())`"
 output:
     html_document:
       keep_md: TRUE
@@ -18,7 +17,8 @@ Learn more about packrat see <https://rstudio.github.io/packrat/>
 Set some options and make sure the packages 'knitr', 'tidyverse', 'reshape2', and 'gr are installed (if not install it), and then load
 
 In the R console run the following commands
-```{r setup, results='hide', warning=F, error=F}
+
+```r
 if (!any(rownames(installed.packages()) == "knitr")){
   install.packages("knitr")
 }
@@ -28,16 +28,59 @@ if (!any(rownames(installed.packages()) == "tidyverse")){
   install.packages("tidyverse")
 }
 library(tidyverse)
+```
 
+```
+## ── Attaching packages ───────────────────────────── tidyverse 1.2.1 ──
+```
+
+```
+## ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.4
+## ✔ tidyr   0.8.0     ✔ stringr 1.3.0
+## ✔ readr   1.1.1     ✔ forcats 0.3.0
+```
+
+```
+## ── Conflicts ──────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+```
+
+```r
 if (!any(rownames(installed.packages()) == "reshape2")){
   install.packages("reshape2")
 }
 library(reshape2)
+```
 
+```
+##
+## Attaching package: 'reshape2'
+```
+
+```
+## The following object is masked from 'package:tidyr':
+##
+##     smiths
+```
+
+```r
 if (!any(rownames(installed.packages()) == "gridExtra")){
   install.packages("gridExtra")
 }
 library(gridExtra)
+```
+
+```
+##
+## Attaching package: 'gridExtra'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+##
+##     combine
 ```
 
 Learn more about the tidyverse see <https://www.tidyverse.org>.
@@ -71,14 +114,16 @@ Try executing the code chunks in the R Notebook.
 This is the stats file generated after running samtools stats on a bam file generated from running BWA MEM.
 
 In the R console run the following command.
-```{r download1, results='hide', warning=F, error=F}
+
+```r
 download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-March-Bioinformatics-Prerequisites/master/Data_in_R/bwa_mem_Stats.log", "bwa_mem_Stats.log")
 ```
 
 ### Download the template Markdown workshop document and open it
 
 In the R console run the following command
-```{r download2, results='hide', warning=F, error=F}
+
+```r
 download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-March-Bioinformatics-Prerequisites/master/Data_in_R/data_in_R.Rmd", "data_in_R.Rmd")
 ```
 
@@ -101,5 +146,3 @@ output:
 We will recreate some of the plots generated with plot-bamstats on the same file
 
 You can view the output of plot-bamstats -> <https://rawgit.com/ucdavis-bioinformatics-training/2018-March-Bioinformatics-Prerequisites/master/Data_in_R/bwa_mem_Stats/bwa_mem_Stats.html>
-
-
