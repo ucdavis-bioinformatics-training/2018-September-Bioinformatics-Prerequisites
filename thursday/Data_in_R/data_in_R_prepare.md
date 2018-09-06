@@ -124,7 +124,7 @@ This is the stats file generated after running samtools stats on a bam file gene
 In the R console run the following command.
 
 ```r
-download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-March-Bioinformatics-Prerequisites/master/Data_in_R/bwa_mem_Stats.log", "bwa_mem_Stats.log")
+download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-September-Bioinformatics-Prerequisites/master/thursday/Data_in_R/bwa.samtools.stats", "bwa.samtools.stats")
 ```
 
 ### Download the template Markdown workshop document and open it
@@ -132,7 +132,7 @@ download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training
 In the R console run the following command
 
 ```r
-download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-March-Bioinformatics-Prerequisites/master/Data_in_R/data_in_R.Rmd", "data_in_R.Rmd")
+download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-September-Bioinformatics-Prerequisites/master/thursday/Data_in_R/data_in_R_prepare.Rmd", "data_in_R.Rmd")
 ```
 
 ### Edit the file YAML portion
@@ -153,4 +153,4 @@ output:
 
 We will recreate some of the plots generated with plot-bamstats on the same file
 
-You can view the output of plot-bamstats -> <https://rawgit.com/ucdavis-bioinformatics-training/2018-March-Bioinformatics-Prerequisites/master/Data_in_R/bwa_mem_Stats/bwa_mem_Stats.html>
+You can view the output of plot-bamstats -> <https://rawgit.com/ucdavis-bioinformatics-training/2018-September-Bioinformatics-Prerequisites/master/thursday/Data_in_R/bwa.samtools.stats.plot/index.html>

@@ -19,16 +19,16 @@ library(reshape2)
 library(gridExtra)
 ```
 
-This document assumes you have the file 'bwa_mem_Stats.log' in your current working directory, lets test to make sure it is.
+This document assumes you have the file 'bwa.samtools.stats' in your current working directory, lets test to make sure it is.
 ```{r check_data}
-file.exists("bwa_mem_Stats.log")
+file.exists("bwa.samtools.stats")
 ```
 
 If it returned TRUE, great! If not return to the Prepare data_in_R doc and follow the directions to get the file.
 
 So lets read in the file and view the first few lines and get the length
 ```{r load_data}
-data <- readLines("bwa_mem_Stats.log")
+data <- readLines("bwa.samtools.stats")
 head(data)
 length(data)
 ```
@@ -88,7 +88,7 @@ First lets extract the read length data and create a table
 
 ```{r get_rl}
 rl <- grep("^RL",data, value=TRUE)
-rl <- separate(data.frame(rl),col=1, into=c("ID", "read_length", "count"), sep="\t")[,-1]
+rl <- separate(data.frame(rl),col=1, into=c("ID", "read_length", "count"), sep="\t", convert = TRUE)[,-1]
 ```
 
 ### Lets get the insert size of mapped pairs
@@ -103,9 +103,10 @@ First lets extract the insert sizes data and create a table
 
 ```{r get_is}
 is <- grep("^IS",data, value=TRUE)
-is <- separate(data.frame(is),col=1, into=c("ID", "insert size","all pairs", "inward", "outward", "other"), sep="\t")[,-1]
+is <- separate(data.frame(is),col=1, into=c("ID", "insert size","all pairs", "inward", "outward", "other"), sep="\t", convert=TRUE)[,-1]
 ```
 
+summarize(is,avg=mean(`all pairs`), noutward=sum(outward), ninward=sum(inward))
 
 ### Lets get the ACGT content per cycle
 
@@ -119,7 +120,7 @@ First lets extract the base composition of first and last pairs and create a tab
 
 ```{r get_acgt}
 actg <- grep("^GCC",data, value=TRUE)
-actg <- separate(data.frame(actg),col=1, into=c("ID", "cycle", "A", "C", "G", "T", "N", "O"), sep="\t")[,-1]
+actg <- separate(data.frame(actg),col=1, into=c("ID", "cycle", "A", "C", "G", "T", "N", "O"), sep="\t",  convert=TRUE)[,-1]
 ```
 
 ### Lets get the fragment qualities of mapped pairs
@@ -133,7 +134,7 @@ First lets extract the fragment qualities of first and last pairs and create a t
 
 ```{r get_fq}
 fq <- grep("^FFQ|^LFQ",data, value=TRUE)
-fq <- separate(data.frame(fq),col=1, into=c("Pair", "Cycle", seq(43)), sep="\t")
+fq <- separate(data.frame(fq),col=1, into=c("Pair", "Cycle", seq(43)), sep="\t", convert=TRUE)
 ```
 
 ### Lets get the GC content of mapped pairs
@@ -147,7 +148,7 @@ First lets extract the GC content of first and last pairs and create a table
 
 ```{r  get_gc}
 gc <- grep("^GCF|^GCL",data, value=TRUE)
-gc <- separate(data.frame(gc),col=1, into=c("Pair", "GC", "Count"), sep="\t")
+gc <- separate(data.frame(gc),col=1, into=c("Pair", "GC", "Count"), sep="\t", convert=TRUE)
 ```
 
 ### Lets get the Indel Distribution
@@ -162,7 +163,7 @@ First lets extract the indel distribution data and create a table
 
 ```{r get_id}
 id <- grep("^ID",data, value=TRUE)
-id <- separate(data.frame(id),col=1, into=c("ID", "length", "insertion_count", "deletion_count"), sep="\t")[,-1]
+id <- separate(data.frame(id),col=1, into=c("ID", "length", "insertion_count", "deletion_count"), sep="\t", covert=TRUE)[,-1]
 ```
 
 ### Lets get the Indel per cycle
@@ -177,7 +178,7 @@ First lets extract the indel by cycle data and create a table
 
 ```{r get_ic}
 ic <- grep("^IC",data, value=TRUE)
-ic <- separate(data.frame(ic),col=1, into=c("ID", "cycle", "ins_fwd", "ins_rev", "del_fwd", "del_rev"), sep="\t")[,-1]
+ic <- separate(data.frame(ic),col=1, into=c("ID", "cycle", "ins_fwd", "ins_rev", "del_fwd", "del_rev"), sep="\t", convert=TRUE)[,-1]
 ```
 
 ### Lets get the coverage data and GC Coverage data
@@ -270,7 +271,7 @@ g + geom_line(aes(y=as.numeric(get("inward"))),color="blue") +
 Hard to see the bulk of the data, lets reset the x/y limits to 0,600 and 0,20000 respectively.
 
 ```{r plot_is_limits}
-g + geom_line(aes(y=as.numeric(get("inward"))),color="blue") + geom_line(aes(y=as.numeric(get("outward"))),color="orange") + coord_cartesian(xlim=c(0,600), ylim=c(0,20000))
+g + geom_line(aes(y=as.numeric(get("inward"))),color="blue") + geom_line(aes(y=as.numeric(get("outward"))),color="orange") + coord_cartesian(xlim=c(0,600), ylim=c(0,150000))
 ```
 
 Ok so now put all these elements together into a single plot, save final plot as 'g'
@@ -287,7 +288,8 @@ g <- g + geom_line(aes(y=as.numeric(get("all pairs"))), color="black") +
     geom_line(aes(y=as.numeric(get("other"))), color="orange") 
 g <- g + 
     labs( x = "insert size", y = "all pairs", title ="Mapped insert sizes", subtitle = "All Pairs", caption = "all pairs insert size")
-g <- g + coord_cartesian(xlim=c(0,600), ylim=c(0,20000))
+g <- g + coord_cartesian(xlim=c(0,600), ylim=c(0,3500000))
+plot(g)
 ```
 
 ### Plotting GC content
@@ -370,7 +372,7 @@ j
 
 ### Plotting indel lengths
 
-** On your own**  Recreate the indel lengths plot\
+** On your own**  Recreate the indel lengths plot
 
 ```{r indel_plot}
 k <- ggplot(id, aes(x=as.numeric(length)))
@@ -429,7 +431,7 @@ grid.arrange(k, l, nrow = 1)
 The gridExtra package is great for plotting multiple object in one plot.
 
 ```{r grid_image, fig.width=1,fig.height=1}
-include_graphics("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-March-Bioinformatics-Prerequisites/master/Data_in_R/grid_plot.png")
+include_graphics("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-September-Bioinformatics-Prerequisites/master/thursday/Data_in_R/grid_plot.png")
 ```
 
 ```{r cluster}

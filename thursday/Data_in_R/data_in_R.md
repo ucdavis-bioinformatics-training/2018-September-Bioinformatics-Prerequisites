@@ -19,18 +19,18 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ──────────────────────── tidyverse 1.2.1 ──
+## ── Attaching packages ──────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 ```
 
 ```
-## ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
-## ✔ tibble  1.4.2     ✔ dplyr   0.7.4
-## ✔ tidyr   0.8.0     ✔ stringr 1.3.0
+## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
 ## ✔ readr   1.1.1     ✔ forcats 0.3.0
 ```
 
 ```
-## ── Conflicts ─────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ─────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ```
@@ -65,10 +65,10 @@ library(gridExtra)
 ##     combine
 ```
 
-This document assumes you have the file 'bwa_mem_Stats.log' in your current working directory, lets test to make sure it is.
+This document assumes you have the file 'bwa.samtools.stats' in your current working directory, lets test to make sure it is.
 
 ```r
-file.exists("bwa_mem_Stats.log")
+file.exists("bwa.samtools.stats")
 ```
 
 ```
@@ -80,17 +80,17 @@ If it returned TRUE, great! If not return to the Prepare data_in_R doc and follo
 So lets read in the file and view the first few lines and get the length
 
 ```r
-data <- readLines("bwa_mem_Stats.log")
+data <- readLines("bwa.samtools.stats")
 head(data)
 ```
 
 ```
-## [1] "# This file was produced by samtools stats (1.6+htslib-1.6) and can be plotted using plot-bamstats"
+## [1] "# This file was produced by samtools stats (1.9+htslib-1.9) and can be plotted using plot-bamstats"
 ## [2] "# This file contains statistics for all reads."                                                    
-## [3] "# The command line was:  stats bwa_mem.sam"                                                        
+## [3] "# The command line was:  stats -@ 32 bwa.bam"                                                      
 ## [4] "# CHK, Checksum\t[2]Read Names\t[3]Sequences\t[4]Qualities"                                        
 ## [5] "# CHK, CRC32 of reads which passed filtering followed by addition (32bit overflow)"                
-## [6] "CHK\t1822d9ff\t21e43765\ta76bc679"
+## [6] "CHK\t77e64415\t5b47b901\t532fe148"
 ```
 
 ```r
@@ -98,7 +98,7 @@ length(data)
 ```
 
 ```
-## [1] 8692
+## [1] 1866
 ```
 
 There are many sections to the samtools stats output, each section begins with a two or three letter code.
@@ -146,39 +146,46 @@ kable(sn, caption="Summary numbers")
 
 Table: Summary numbers
 
-Name                              Value        
---------------------------------  -------------
-raw total sequences:              5964242      
-filtered sequences:               0            
-sequences:                        5964242      
-is sorted:                        0            
-1st fragments:                    2982121      
-last fragments:                   2982121      
-reads mapped:                     5953492      
-reads mapped and paired:          5943876      
-reads unmapped:                   10750        
-reads properly paired:            5449340      
-reads paired:                     5964242      
-reads duplicated:                 0            
-reads MQ0:                        519301       
-reads QC failed:                  0            
-non-primary alignments:           0            
-total length:                     596424200    
-bases mapped:                     595349200    
-bases mapped (cigar):             568895918    
-bases trimmed:                    0            
-bases duplicated:                 0            
-mismatches:                       2455843      
-error rate:                       4.316858e-03 
-average length:                   100          
-maximum length:                   100          
-average quality:                  38.8         
-insert size average:              503.1        
-insert size standard deviation:   1301.3       
-inward oriented pairs:            2556576      
-outward oriented pairs:           161541       
-pairs with other orientation:     5914         
-pairs on different chromosomes:   49491        
+Name                                       Value        
+-----------------------------------------  -------------
+raw total sequences:                       913311962    
+filtered sequences:                        0            
+sequences:                                 913311962    
+is sorted:                                 0            
+1st fragments:                             456655981    
+last fragments:                            456655981    
+reads mapped:                              800365919    
+reads mapped and paired:                   748856756    
+reads unmapped:                            112946043    
+reads properly paired:                     306860552    
+reads paired:                              913311962    
+reads duplicated:                          0            
+reads MQ0:                                 439677889    
+reads QC failed:                           0            
+non-primary alignments:                    290462657    
+total length:                              127407018699 
+total first fragment length:               58451965568  
+total last fragment length:                68955053131  
+bases mapped:                              111789284981 
+bases mapped (cigar):                      53892754351  
+bases trimmed:                             0            
+bases duplicated:                          0            
+mismatches:                                1041917776   
+error rate:                                1.933317e-02 
+average length:                            139          
+average first fragment length:             128          
+average last fragment length:              151          
+maximum length:                            151          
+maximum first fragment length:             128          
+maximum last fragment length:              151          
+average quality:                           26.6         
+insert size average:                       176.9        
+insert size standard deviation:            132.5        
+inward oriented pairs:                     122015428    
+outward oriented pairs:                    32504015     
+pairs with other orientation:              4311328      
+pairs on different chromosomes:            215597607    
+percentage of properly paired reads (%):   33.6         
 
 
 ```r
@@ -198,7 +205,7 @@ First lets extract the read length data and create a table
 
 ```r
 rl <- grep("^RL",data, value=TRUE)
-rl <- separate(data.frame(rl),col=1, into=c("ID", "read_length", "count"), sep="\t")[,-1]
+rl <- separate(data.frame(rl),col=1, into=c("ID", "read_length", "count"), sep="\t", convert = TRUE)[,-1]
 ```
 
 ### Lets get the insert size of mapped pairs
@@ -214,9 +221,10 @@ First lets extract the insert sizes data and create a table
 
 ```r
 is <- grep("^IS",data, value=TRUE)
-is <- separate(data.frame(is),col=1, into=c("ID", "insert size","all pairs", "inward", "outward", "other"), sep="\t")[,-1]
+is <- separate(data.frame(is),col=1, into=c("ID", "insert size","all pairs", "inward", "outward", "other"), sep="\t", convert=TRUE)[,-1]
 ```
 
+summarize(is,avg=mean(`all pairs`), noutward=sum(outward), ninward=sum(inward))
 
 ### Lets get the ACGT content per cycle
 
@@ -231,7 +239,7 @@ First lets extract the base composition of first and last pairs and create a tab
 
 ```r
 actg <- grep("^GCC",data, value=TRUE)
-actg <- separate(data.frame(actg),col=1, into=c("ID", "cycle", "A", "C", "G", "T", "N", "O"), sep="\t")[,-1]
+actg <- separate(data.frame(actg),col=1, into=c("ID", "cycle", "A", "C", "G", "T", "N", "O"), sep="\t",  convert=TRUE)[,-1]
 ```
 
 ### Lets get the fragment qualities of mapped pairs
@@ -246,7 +254,13 @@ First lets extract the fragment qualities of first and last pairs and create a t
 
 ```r
 fq <- grep("^FFQ|^LFQ",data, value=TRUE)
-fq <- separate(data.frame(fq),col=1, into=c("Pair", "Cycle", seq(43)), sep="\t")
+fq <- separate(data.frame(fq),col=1, into=c("Pair", "Cycle", seq(43)), sep="\t", convert=TRUE)
+```
+
+```
+## Warning: Expected 45 pieces. Missing pieces filled with `NA` in 279
+## rows [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+## 20, ...].
 ```
 
 ### Lets get the GC content of mapped pairs
@@ -261,7 +275,7 @@ First lets extract the GC content of first and last pairs and create a table
 
 ```r
 gc <- grep("^GCF|^GCL",data, value=TRUE)
-gc <- separate(data.frame(gc),col=1, into=c("Pair", "GC", "Count"), sep="\t")
+gc <- separate(data.frame(gc),col=1, into=c("Pair", "GC", "Count"), sep="\t", convert=TRUE)
 ```
 
 ### Lets get the Indel Distribution
@@ -277,7 +291,7 @@ First lets extract the indel distribution data and create a table
 
 ```r
 id <- grep("^ID",data, value=TRUE)
-id <- separate(data.frame(id),col=1, into=c("ID", "length", "insertion_count", "deletion_count"), sep="\t")[,-1]
+id <- separate(data.frame(id),col=1, into=c("ID", "length", "insertion_count", "deletion_count"), sep="\t", covert=TRUE)[,-1]
 ```
 
 ### Lets get the Indel per cycle
@@ -293,7 +307,7 @@ First lets extract the indel by cycle data and create a table
 
 ```r
 ic <- grep("^IC",data, value=TRUE)
-ic <- separate(data.frame(ic),col=1, into=c("ID", "cycle", "ins_fwd", "ins_rev", "del_fwd", "del_rev"), sep="\t")[,-1]
+ic <- separate(data.frame(ic),col=1, into=c("ID", "cycle", "ins_fwd", "ins_rev", "del_fwd", "del_rev"), sep="\t", convert=TRUE)[,-1]
 ```
 
 ### Lets get the coverage data and GC Coverage data
@@ -396,7 +410,7 @@ Hard to see the bulk of the data, lets reset the x/y limits to 0,600 and 0,20000
 
 
 ```r
-g + geom_line(aes(y=as.numeric(get("inward"))),color="blue") + geom_line(aes(y=as.numeric(get("outward"))),color="orange") + coord_cartesian(xlim=c(0,600), ylim=c(0,20000))
+g + geom_line(aes(y=as.numeric(get("inward"))),color="blue") + geom_line(aes(y=as.numeric(get("outward"))),color="orange") + coord_cartesian(xlim=c(0,600), ylim=c(0,150000))
 ```
 
 ![](data_in_R_files/figure-html/plot_is_limits-1.png)<!-- -->
@@ -416,8 +430,11 @@ g <- g + geom_line(aes(y=as.numeric(get("all pairs"))), color="black") +
     geom_line(aes(y=as.numeric(get("other"))), color="orange") 
 g <- g + 
     labs( x = "insert size", y = "all pairs", title ="Mapped insert sizes", subtitle = "All Pairs", caption = "all pairs insert size")
-g <- g + coord_cartesian(xlim=c(0,600), ylim=c(0,20000))
+g <- g + coord_cartesian(xlim=c(0,600), ylim=c(0,3500000))
+plot(g)
 ```
+
+![](data_in_R_files/figure-html/insert_length-1.png)<!-- -->
 
 ### Plotting GC content
 
@@ -430,12 +447,12 @@ head(gc)
 
 ```
 ##   Pair   GC Count
-## 1  GCF 0.25    64
-## 2  GCF 1.01   166
-## 3  GCF 2.01   188
-## 4  GCF 3.02   251
-## 5  GCF 4.02   195
-## 6  GCF 5.03   170
+## 1  GCF 0.25  9986
+## 2  GCF 1.01  6442
+## 3  GCF 1.76  6816
+## 4  GCF 2.51  8029
+## 5  GCF 3.27  9586
+## 6  GCF 4.02 11557
 ```
 
 ```r
@@ -530,7 +547,7 @@ j
 
 ### Plotting indel lengths
 
-** On your own**  Recreate the indel lengths plot\
+** On your own**  Recreate the indel lengths plot
 
 
 ```r
@@ -626,10 +643,10 @@ The gridExtra package is great for plotting multiple object in one plot.
 
 
 ```r
-include_graphics("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-March-Bioinformatics-Prerequisites/master/Data_in_R/grid_plot.png")
+include_graphics("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-September-Bioinformatics-Prerequisites/master/thursday/Data_in_R/grid_plot.png")
 ```
 
-![](https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-March-Bioinformatics-Prerequisites/master/Data_in_R/grid_plot.png)<!-- -->
+![](https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-September-Bioinformatics-Prerequisites/master/thursday/Data_in_R/grid_plot.png)<!-- -->
 
 
 ```r
@@ -679,13 +696,13 @@ sessionInfo()
 ```
 
 ```
-## R version 3.4.4 (2018-03-15)
+## R version 3.5.1 (2018-07-02)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
-## Running under: macOS High Sierra 10.13.3
+## Running under: macOS High Sierra 10.13.6
 ## 
 ## Matrix products: default
-## BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
-## LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
 ## 
 ## locale:
 ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -694,22 +711,21 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] gridExtra_2.3   reshape2_1.4.3  forcats_0.3.0   stringr_1.3.0  
-##  [5] dplyr_0.7.4     purrr_0.2.4     readr_1.1.1     tidyr_0.8.0    
-##  [9] tibble_1.4.2    ggplot2_2.2.1   tidyverse_1.2.1 knitr_1.20     
+##  [1] gridExtra_2.3   reshape2_1.4.3  forcats_0.3.0   stringr_1.3.1  
+##  [5] dplyr_0.7.6     purrr_0.2.5     readr_1.1.1     tidyr_0.8.1    
+##  [9] tibble_1.4.2    ggplot2_3.0.0   tidyverse_1.2.1 knitr_1.20     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_0.2.4 haven_1.1.1      lattice_0.20-35  colorspace_1.3-2
-##  [5] htmltools_0.3.6  yaml_2.1.18      rlang_0.2.0      pillar_1.2.1    
-##  [9] foreign_0.8-69   glue_1.2.0       modelr_0.1.1     readxl_1.0.0    
-## [13] bindrcpp_0.2     bindr_0.1.1      plyr_1.8.4       munsell_0.4.3   
-## [17] gtable_0.2.0     cellranger_1.1.0 rvest_0.3.2      psych_1.7.8     
-## [21] evaluate_0.10.1  labeling_0.3     parallel_3.4.4   highr_0.6       
-## [25] broom_0.4.3      Rcpp_0.12.16     scales_0.5.0     backports_1.1.2 
-## [29] jsonlite_1.5     mnormt_1.5-5     hms_0.4.2        packrat_0.4.9-1 
-## [33] digest_0.6.15    stringi_1.1.7    grid_3.4.4       rprojroot_1.3-2 
-## [37] cli_1.0.0        tools_3.4.4      magrittr_1.5     lazyeval_0.2.1  
-## [41] crayon_1.3.4     pkgconfig_2.0.1  xml2_1.2.0       lubridate_1.7.3 
-## [45] assertthat_0.2.0 rmarkdown_1.9    httr_1.3.1       rstudioapi_0.7  
-## [49] R6_2.2.2         nlme_3.1-131.1   compiler_3.4.4
+##  [1] Rcpp_0.12.18     highr_0.7        cellranger_1.1.0 pillar_1.3.0    
+##  [5] compiler_3.5.1   plyr_1.8.4       bindr_0.1.1      tools_3.5.1     
+##  [9] digest_0.6.16    packrat_0.4.9-3  lubridate_1.7.4  jsonlite_1.5    
+## [13] evaluate_0.11    nlme_3.1-137     gtable_0.2.0     lattice_0.20-35 
+## [17] pkgconfig_2.0.2  rlang_0.2.2      cli_1.0.0        rstudioapi_0.7  
+## [21] yaml_2.2.0       haven_1.1.2      bindrcpp_0.2.2   withr_2.1.2     
+## [25] xml2_1.2.0       httr_1.3.1       hms_0.4.2        rprojroot_1.3-2 
+## [29] grid_3.5.1       tidyselect_0.2.4 glue_1.3.0       R6_2.2.2        
+## [33] readxl_1.1.0     rmarkdown_1.10   modelr_0.1.2     magrittr_1.5    
+## [37] backports_1.1.2  scales_1.0.0     htmltools_0.3.6  rvest_0.3.2     
+## [41] assertthat_0.2.0 colorspace_1.3-2 labeling_0.3     stringi_1.2.4   
+## [45] lazyeval_0.2.1   munsell_0.5.0    broom_0.5.0      crayon_1.3.4
 ```
