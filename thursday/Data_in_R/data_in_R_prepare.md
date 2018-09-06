@@ -132,7 +132,7 @@ download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training
 In the R console run the following command
 
 ```r
-download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-September-Bioinformatics-Prerequisites/master/thursday/Data_in_R/data_in_R_prepare.Rmd", "data_in_R.Rmd")
+download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-September-Bioinformatics-Prerequisites/master/thursday/Data_in_R/data_in_R.Rmd", "data_in_R.Rmd")
 ```
 
 ### Edit the file YAML portion
