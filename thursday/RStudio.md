@@ -111,7 +111,7 @@ In this case, the equal sign works as well
     x
     ## [1]  1  2  3  4  5  6  7  8  9 10
 
-But you should **NEVER EVER DO THIS
+But you should **NEVER EVER DO THIS**
 
     1:10 -> x
     x
