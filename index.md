@@ -32,6 +32,10 @@ Thursday
 * [Data in R - Prepare](thursday/Data_in_R/data_in_R_prepare)
 * [Data in R](thursday/Data_in_R/data_in_R)
 
+Friday
+----------
+* [Walkthrough of vignettes for limma and biomaRt](friday/limma_biomart_vignettes.html)
+
 
 Cheat Sheets
 ----------
