@@ -34,7 +34,8 @@ Thursday
 
 Friday
 ----------
-* [Walkthrough of vignettes for limma and biomaRt](friday/limma_biomart_vignettes.html)
+* [Linear Models in R](friday/linear_models.html)
+* [Walkthrough of Vignettes for limma and biomaRt](friday/limma_biomart_vignettes.html)
 
 
 Cheat Sheets
