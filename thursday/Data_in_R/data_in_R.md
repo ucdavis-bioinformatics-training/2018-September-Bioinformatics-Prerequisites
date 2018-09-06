@@ -83,9 +83,11 @@ dir()
 
 ```
 ##  [1] "bwa_mem_Stats.log"  "bwa.samtools.stats" "data_in_R_files"   
-##  [4] "data_in_R.html"     "data_in_R.md"       "data_in_R.nb.html" 
-##  [7] "data_in_R.Rmd"      "Data_in_R.Rproj"    "indel_ratio.pdf"   
-## [10] "indel_ratio.png"    "insert_size.png"    "packrat"
+##  [4] "data_in_R.html"     "data_in_R.knit.md"  "data_in_R.md"      
+##  [7] "data_in_R.nb.html"  "data_in_R.Rmd"      "Data_in_R.Rproj"   
+## [10] "data_in_R.utf8.md"  "indel_ratio.pdf"    "indel_ratio.png"   
+## [13] "insert_size.png"    "multi_plot.pdf"     "multi_plot.png"    
+## [16] "packrat"
 ```
 
 ```r
@@ -295,14 +297,16 @@ First lets extract the fragment qualities of first and last pairs and create a t
 
 ```r
 fq <- grep("^FFQ|^LFQ",data, value=TRUE)
-fq <- separate(data.frame(fq),col=1, into=c("Pair", "Cycle", seq(43)), sep="\t", convert=TRUE)
+fq <- separate(data.frame(fq),col=1, into=c("Pair", "Cycle", seq(41)), sep="\t", convert=TRUE)
 ```
 
 ```
-## Warning: Expected 45 pieces. Missing pieces filled with `NA` in 279
+## Warning: Expected 43 pieces. Missing pieces filled with `NA` in 279
 ## rows [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
 ## 20, ...].
 ```
+
+We get a message here, saying data is missing. This is because there are no 38,39,40,41 quality scores (the typical range for Illumina qualities).
 
 ### Lets get the GC content of mapped pairs
 
@@ -507,10 +511,6 @@ plot(g)
 
 ![](data_in_R_files/figure-html/insert_length-1.png)<!-- -->
 
-```r
-ggsave("insert_size.png",width=10,height=8)
-```
-
 ### Plotting GC content
 
 In order to plot GC percentage we first need to convert the counts to proportions, to do so we can divide the counts by the sum of counts.
@@ -602,7 +602,8 @@ Now lets try changing the gradient colors and modify the legend, add labels. The
 
 
 ```r
-j = j + geom_tile(aes(fill = as.numeric(value))) + scale_fill_gradient(low = "red", high = "green") +
+j = j + geom_tile(aes(fill = as.numeric(value))) + 
+  scale_fill_gradient(low = "red", high = "green") +
   ylab("Cycle") +
   xlab("Quality") +
   theme(legend.title = element_text(size = 10),
@@ -615,6 +616,8 @@ j
 ```
 
 ![](data_in_R_files/figure-html/heatmap-1.png)<!-- -->
+
+** On your own** Try modifying scale_fill_gradient to scale_fill_distiller.
 
 ** On your own** Play with parts of the plotting function, see how the change modifies the plot.
 
@@ -723,7 +726,7 @@ include_graphics("https://raw.githubusercontent.com/ucdavis-bioinformatics-train
 
 
 ```r
-grid.arrange(
+full <- grid.arrange(
   g, h, i, i2, 
   widths = c(2, 1, 1),
   layout_matrix = rbind(c(1, 2, NA),
@@ -742,18 +745,18 @@ This must be done outside of the Notebook as the notebook expects you to plot in
 Saving plots to pdf ** do on the console **
 
 ```r
-pdf("indel_ratio.pdf", width=6, height=4, pointsize = 8)
-l
-dev.off()
+ggsave("multi_plot.pdf",full,device="pdf",width=6,height=4, units="in", dpi=300)
 ```
 
 Saving plots to png  ** do on the console **
 
 ```r
-png("indel_ratio.png",width = 6, height = 4, res = 300, units = "in", pointsize = 8)
-l
-dev.off()
+ggsave("multi_plot.png",full,device="png",width=6,height=4, units="in", dpi=300)
 ```
+
+View the help documentation for ggsave, what other 
+
+With any remaining time (or homework), use the ggplot cheat sheet to further expand and modify the plots.
 
 ## ggplot2 book by its author, Hadley Wickham
 

@@ -3,9 +3,9 @@ title: "Data_in_R"
 author: Matt Settles
 date: "2018-03-28"
 output:
-    html_notebook: default
     html_document:
         keep_md: TRUE
+    html_notebook: default
 ---
 
 Recreating (and maybe improving on) some of the figures generated with plot-bamstats application in R.
@@ -145,8 +145,10 @@ First lets extract the fragment qualities of first and last pairs and create a t
 
 ```{r get_fq}
 fq <- grep("^FFQ|^LFQ",data, value=TRUE)
-fq <- separate(data.frame(fq),col=1, into=c("Pair", "Cycle", seq(43)), sep="\t", convert=TRUE)
+fq <- separate(data.frame(fq),col=1, into=c("Pair", "Cycle", seq(41)), sep="\t", convert=TRUE)
 ```
+
+We get a message here, saying data is missing. This is because there are no 38,39,40,41 quality scores (the typical range for Illumina qualities).
 
 ### Lets get the GC content of mapped pairs
 
@@ -323,7 +325,6 @@ g <- g +
 g <- g + coord_cartesian(xlim=c(0,500), ylim=c(0,600000))
 g <- g + theme_light()
 plot(g)
-ggsave("insert_size.png",width=10,height=8)
 ```
 
 ### Plotting GC content
@@ -388,7 +389,8 @@ Now lets try changing the gradient colors and modify the legend, add labels. The
 ```
 
 ```{r heatmap}
-j = j + geom_tile(aes(fill = as.numeric(value))) + scale_fill_gradient(low = "red", high = "green") +
+j = j + geom_tile(aes(fill = as.numeric(value))) + 
+  scale_fill_gradient(low = "red", high = "green") +
   ylab("Cycle") +
   xlab("Quality") +
   theme(legend.title = element_text(size = 10),
@@ -398,7 +400,10 @@ j = j + geom_tile(aes(fill = as.numeric(value))) + scale_fill_gradient(low = "re
         axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(fill = "Quality value")
 j
+
 ```
+
+** On your own** Try modifying scale_fill_gradient to scale_fill_distiller.
 
 ** On your own** Play with parts of the plotting function, see how the change modifies the plot.
 
@@ -467,12 +472,13 @@ include_graphics("https://raw.githubusercontent.com/ucdavis-bioinformatics-train
 ```
 
 ```{r cluster}
-grid.arrange(
+full <- grid.arrange(
   g, h, i, i2, 
   widths = c(2, 1, 1),
   layout_matrix = rbind(c(1, 2, NA),
                         c(3, 3, 4))
 )
+
 ```
 
 ** on your own**: Play with th grid.arrange function, using the plots you've created to create you own final combined plot.
@@ -483,17 +489,17 @@ This must be done outside of the Notebook as the notebook expects you to plot in
 
 Saving plots to pdf ** do on the console **
 ```{r pdf, eval=F}
-pdf("indel_ratio.pdf", width=6, height=4, pointsize = 8)
-l
-dev.off()
+ggsave("multi_plot.pdf",full,device="pdf",width=6,height=4, units="in", dpi=300)
 ```
 
 Saving plots to png  ** do on the console **
 ```{r plot_png, eval=FALSE}
-png("indel_ratio.png",width = 6, height = 4, res = 300, units = "in", pointsize = 8)
-l
-dev.off()
+ggsave("multi_plot.png",full,device="png",width=6,height=4, units="in", dpi=300)
 ```
+
+View the help documentation for ggsave, what other 
+
+With any remaining time (or homework), use the ggplot cheat sheet to further expand and modify the plots.
 
 ## ggplot2 book by its author, Hadley Wickham
 
