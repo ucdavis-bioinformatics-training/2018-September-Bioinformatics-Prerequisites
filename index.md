@@ -4,16 +4,11 @@ title: Bioinformatics Prerequisites Workshop - Sept 2-5, 2018
 
 ## UC Davis Genome Center [*Bioinformatics Core*](http://bioinformatics.ucdavis.edu/)
 
-Cheat Sheets
-----------
-
-[Cheat Sheets](cheatSheetIndex.md)
-
+[Introduction](lecture/Introduction.pdf)
 
 Tuesday
 ----------
 
-* [Introduction](tuesday/Introduction.pdf)
 * [Introductions, and Getting Connected](tuesday/logging-in.md)
 * [Unix & the Command Line - HANDS-ON](tuesday/command-line-intro.md)
 * [Some Bioinformatics File Formats - TALK](tuesday/formats.pdf)
@@ -36,6 +31,12 @@ Thursday
 * [Introduction to R](thursday/Intro2R/Intro2R)
 * [Data in R - Prepare](thursday/Data_in_R/data_in_R_prepare)
 * [Data in R](thursday/Data_in_R/data_in_R)
+
+
+Cheat Sheets
+----------
+
+[Cheat Sheets](cheatSheetIndex.md)
 
 
 Possible extra lectures
