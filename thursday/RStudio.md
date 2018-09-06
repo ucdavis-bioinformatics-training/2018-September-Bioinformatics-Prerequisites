@@ -85,7 +85,7 @@ File -> Save as -> Intro2R.R
 
 The R prompt is the '>' , when R is expecting more (command is not complete) you see a '+'
 
-<img src="RStudio_figures/Prompt.png" alt="Prompt" width="300px"/>
+<img src="RStudio_figures/Prompt.png" alt="Prompt" width="500px"/>
 
 **4\.** Writing and running R commands
 
