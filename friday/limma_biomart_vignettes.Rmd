@@ -3,7 +3,7 @@ title: "Working Through the limma and biomaRt Vignettes"
 output: html_document
 ---
 
-Note: Throughout, text taken directly from the vignettes will be shown in <span style="font-family:georgia"</span> georgia font</span> and code/output from the limma User's guide will be shown with a blue background. Everything else is my commentary/additions.
+Note: Throughout, text taken directly from the vignettes will be shown in <span style="font-family:georgia"</span> georgia font</span> and code/output from the vignettes will be shown with a blue background. Everything else is my commentary/additions.
 
 ## limma
 Limma is an R package for differential expression testing of RNASeq and microarray data.  The [limma User's Guide](http://bioconductor.org/packages/release/bioc/vignettes/limma/inst/doc/usersguide.pdf) is an extensive, 100+ page summary of limma's many capabilities.  We will focus only on Chapter 15, "RNA-seq Data".
