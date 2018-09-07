@@ -11,7 +11,7 @@ Limma is an R package for differential expression testing of RNASeq and microarr
 Install limma and edgeR if you have not already done so:
 ```{r}
 # source("https://bioconductor.org/biocLite.R")
-# biocLite(c("limma", "edge"))
+# biocLite(c("limma", "edgeR"))
 ```
 
 Load edgeR (which loads limma as a dependency)
@@ -108,7 +108,7 @@ robust approach to differential expression is to use limma-trend. This approach 
 ratio of the largest library size to the smallest is not more than about 3-fold.
 >
 <span style="font-family:georgia">
-In the limma-trend approach, the counts are converted to logCPM values using edgeR’s cpm
+In the limma-trend approach, the counts are converted to logCPM values using edgeR's cpm
 function:
 </span>
 
@@ -288,7 +288,7 @@ ensembl = useMart("ensembl",dataset="hsapiens_gene_ensembl")
 </span>
 >
 <span style="font-family:georgia">
-The getBM() function has three arguments that need to be introduced: filters, attributes and values. Filters define a restriction on the query. For example you want to restrict the output to all genes located on the human X chromosome then the filter chromosome_name can be used with value ‘X’. The listFilters() function shows you all available filters in the selected dataset.
+The getBM() function has three arguments that need to be introduced: filters, attributes and values. Filters define a restriction on the query. For example you want to restrict the output to all genes located on the human X chromosome then the filter chromosome_name can be used with value 'X'. The listFilters() function shows you all available filters in the selected dataset.
 </span>
 
 ```{r, class.source = 'bg-info', class.output = 'bg-info'}
@@ -329,11 +329,11 @@ Note: for some frequently used queries to Ensembl, wrapper functions are availab
 </span>
 >
 <span style="font-family:georgia">
-Now that we selected a BioMart database and dataset, and know about attributes, filters, and the values for filters; we can build a biomaRt query. Let’s make an easy query for the following problem: We have a list of Affymetrix identifiers from the u133plus2 platform and we want to retrieve the corresponding EntrezGene identifiers using the Ensembl mappings.
+Now that we selected a BioMart database and dataset, and know about attributes, filters, and the values for filters; we can build a biomaRt query. Let's make an easy query for the following problem: We have a list of Affymetrix identifiers from the u133plus2 platform and we want to retrieve the corresponding EntrezGene identifiers using the Ensembl mappings.
 </span>
 >
 <span style="font-family:georgia">
-The u133plus2 platform will be the filter for this query and as values for this filter we use our list of Affymetrix identifiers. As output (attributes) for the query we want to retrieve the EntrezGene and u133plus2 identifiers so we get a mapping of these two identifiers as a result. The exact names that we will have to use to specify the attributes and filters can be retrieved with the listAttributes() and listFilters() function respectively. Let’s now run the query:
+The u133plus2 platform will be the filter for this query and as values for this filter we use our list of Affymetrix identifiers. As output (attributes) for the query we want to retrieve the EntrezGene and u133plus2 identifiers so we get a mapping of these two identifiers as a result. The exact names that we will have to use to specify the attributes and filters can be retrieved with the listAttributes() and listFilters() function respectively. Let's now run the query:
 </span>
 
 ```{r, class.source = 'bg-info', class.output = 'bg-info'}
