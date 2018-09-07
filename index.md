@@ -53,7 +53,7 @@ Possible extra lectures
 Evaluations
 ----------
 
-[Evaluation for Command-Line](https://docs.google.com/forms/d/e/1FAIpQLSc2UlnKa7yFKeC4gh9oivQU6b-Ai51VezQGa0L78rZTaI4PSg/viewform?usp=sf_link)
+[Evaluation for Command-Line](https://docs.google.com/forms/d/e/1FAIpQLSc2UlnKa7yFKeC4gh9oivQU6b-Ai51VezQGa0L78rZTaI4PSg/viewform?usp=sf_link)  
 [Evaluation for R](https://goo.gl/forms/Z9PijeipPRXI7tNu1)
 
 
