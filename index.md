@@ -11,6 +11,7 @@ Tuesday
 
 * [Introductions, and Getting Connected](tuesday/logging-in.md)
 * [Unix & the Command Line - HANDS-ON](tuesday/command-line-intro.md)
+* [Unix & the Command Line - Challenge Solutions - HANDS-ON](tuesday/command-line-intro-challenge-solutions.md)
 * [Some Bioinformatics File Formats - TALK](tuesday/formats.pdf)
 * [Installing Simple Bioinformatics Software - HANDS-ON](tuesday/software.md)
 
