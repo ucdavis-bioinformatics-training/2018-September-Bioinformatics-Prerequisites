@@ -1,7 +1,7 @@
 ---
 title: "Prepare Data_in_R"
 author: "Bioinformatics Core"
-date: "2018-03-28"
+date: "2018-09-08"
 output:
     html_document:
       keep_md: TRUE
@@ -32,18 +32,18 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ───────────────────────────── tidyverse 1.2.1 ──
+## ── Attaching packages ────────────────────────── tidyverse 1.2.1 ──
 ```
 
 ```
-## ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
-## ✔ tibble  1.4.2     ✔ dplyr   0.7.4
-## ✔ tidyr   0.8.0     ✔ stringr 1.3.0
+## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
 ## ✔ readr   1.1.1     ✔ forcats 0.3.0
 ```
 
 ```
-## ── Conflicts ──────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ───────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ```
@@ -56,13 +56,13 @@ library(reshape2)
 ```
 
 ```
-##
+## 
 ## Attaching package: 'reshape2'
 ```
 
 ```
 ## The following object is masked from 'package:tidyr':
-##
+## 
 ##     smiths
 ```
 
@@ -74,13 +74,13 @@ library(gridExtra)
 ```
 
 ```
-##
+## 
 ## Attaching package: 'gridExtra'
 ```
 
 ```
 ## The following object is masked from 'package:dplyr':
-##
+## 
 ##     combine
 ```
 
@@ -92,8 +92,6 @@ An R notebook is an R Markdown document with chunks that can be executed indepen
 
 * File -> New File -> R Notebook
 * Save the Notebook (Ex. test)
-
-you may need to install a few more packages.
 
 ### R Markdown
 
@@ -107,11 +105,6 @@ print('hello world!')
 
 Review the R Markdown page and R Markdown cheat sheets.
 
-* [rmarkdown-reference.pdf](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
-
-* [rmarkdown-2.0.pdf](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
-
-
 Try 'knitting' to html, pdf, and doc as well as previewing the notebook. Open the resulting documents.
 
 Try executing the code chunks in the R Notebook.
@@ -124,7 +117,7 @@ This is the stats file generated after running samtools stats on a bam file gene
 In the R console run the following command.
 
 ```r
-download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-September-Bioinformatics-Prerequisites/master/thursday/Data_in_R/bwa.samtools.stats", "bwa.samtools.stats")
+download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2018-September-Bioinformatics-Prerequisites/master/thursday/Data_in_R/bwa_mem_Stats.log", "bwa_mem_Stats.log")
 ```
 
 ### Download the template Markdown workshop document and open it
@@ -153,4 +146,4 @@ output:
 
 We will recreate some of the plots generated with plot-bamstats on the same file
 
-You can view the output of plot-bamstats -> <https://rawgit.com/ucdavis-bioinformatics-training/2018-September-Bioinformatics-Prerequisites/master/thursday/Data_in_R/bwa.samtools.stats.plot/index.html>
+You can view the output of plot-bamstats -> <https://rawgit.com/ucdavis-bioinformatics-training/2018-September-Bioinformatics-Prerequisites/master/thursday/Data_in_R/bwa_mem_Stats/bwa_mem_Stats.html>
