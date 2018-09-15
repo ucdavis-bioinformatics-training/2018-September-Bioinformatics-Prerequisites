@@ -50,7 +50,7 @@ For those who are interested, here's how you'd create a BAM file that could be v
     samtools index ecoli.PB.MEM.bam
     samtools flagstat ecoli.PB.MEM.bam  # for some summary stats
 
-Note that the trailing '-' in the preceding code block is a substitute for a file name, when the command is receiving data from standard in (STDIN), but the command format requires a file name.
+Note that the trailing '-' in the second line of the preceding code block is a substitute for a file name, when the command is receiving data from standard in (STDIN), but the command format requires a file name.
 
 
 
