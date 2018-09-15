@@ -29,7 +29,11 @@ And un-archive it using the 'tar' command:
 
     tar -xzvf Escherichia_coli_K_12_MG1655_NCBI_2001-10-15.tar.gz
 
-Now we want to align the reads to the genome. We *could* use the pre-indexed files included in the archive, but for simplicity's sake, let's do it ourselves. We'll link in the genome, load the BWA module, then index:
+Now we want to align the first 4,000 reads to the genome. Since each sequence takes up four lines, we want the first 16k lines:
+
+    head -n 16000 escherichia_coli_k12_mg1655.m130404_014004_sidney_c100506902550000001823076808221337_s1_p0.1.fastq > ecoli.4k.fastq
+
+Then, we *could* use the pre-indexed files included in the archive, but for simplicity's sake, let's do it ourselves. We'll link in the genome, load the BWA module, then index:
 
     ln -s Escherichia_coli_K_12_MG1655/NCBI/2001-10-15/Sequence/WholeGenomeFasta/genome.fa .
     module load bwa/0.7.16a
@@ -37,7 +41,7 @@ Now we want to align the reads to the genome. We *could* use the pre-indexed fil
 
 Finally, we'll align using BWA's MEM algorithm:
 
-    bwa mem genome.fa escherichia_coli_k12_mg1655.m130404_014004_sidney_c100506902550000001823076808221337_s1_p0.1.fastq > ecoli.PB.MEM.sam
+    bwa mem genome.fa ecoli.4k.fastq > ecoli.PB.MEM.sam
 
 For those who are interested, here's how you'd create a BAM file that could be viewed in [IGV](https://software.broadinstitute.org/software/igv/download):
 
